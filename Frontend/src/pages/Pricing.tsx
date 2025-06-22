@@ -16,7 +16,7 @@ const Pricing = () => {
         <section className="py-12">
           <div className="container mx-auto px-4 md:px-8">
             <div className="text-center mb-16">
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple, Transparent Pricing</h1>
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Simple and Transparent Pricing</h1>
               <p className="text-gray-600 max-w-3xl mx-auto">
                 Choose the plan that works best for your business needs with our freemium model.
               </p>
