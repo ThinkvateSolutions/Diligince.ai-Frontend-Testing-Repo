@@ -19,6 +19,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { log } from "console";
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 
 const formSchema = z.object({
   email: z.string().email({
@@ -55,7 +58,11 @@ const SignIn = () => {
   setIsLoading(true);
 
   try {
+<<<<<<< HEAD
     const response = await axios.post("http://localhost:8000/login", {
+=======
+    const response = await axios.post(`${API_URL}/login`, {
+>>>>>>> feature-code
       email: values.email,
       password: values.password,
       type: values.type,
