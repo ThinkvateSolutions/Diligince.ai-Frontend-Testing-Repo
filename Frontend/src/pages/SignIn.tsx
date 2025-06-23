@@ -58,16 +58,11 @@ const SignIn = () => {
   setIsLoading(true);
 
   try {
-<<<<<<< HEAD
-    const response = await axios.post("http://localhost:8000/login", {
-=======
-    const response = await axios.post(`${API_URL}/login`, {
->>>>>>> feature-code
-      email: values.email,
-      password: values.password,
-      type: values.type,
-      
-    });
+  const response = await axios.post(`${API_URL || 'http://localhost:8000'}/login`, {
+    email: values.email,
+    password: values.password,
+    type: values.type,
+  });
 
     if (response.data.success) {
       localStorage.setItem("token", response.data.token);
