@@ -16,10 +16,11 @@ import { toast } from "sonner";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { log } from "console";
 import axios from "axios";
+import apiRoutes from "@/api/apiRoutes";
+import axiosInstance from "@/api/axiosInstances";
 
-const API_URL = "http://localhost:8000";
+const API_URL = "http://localhost:5000";
 
 
 
@@ -31,7 +32,7 @@ const formSchema = z.object({
     message: "Password is required",
   }),
   rememberMe: z.boolean().default(false),
-  type: z.enum(["industry", "professional", "vendor"]).default("industry"),
+  type: z.enum(["Industry", "Professional", "Vendor"]).default("Industry"),
 });
 
 
@@ -49,7 +50,7 @@ const SignIn = () => {
       email: "",
       password: "",
       rememberMe: false,
-      type: (typeParam as "industry" | "professional" | "vendor") || "industry",
+      type: (typeParam as "Industry" | "Professional" | "Vendor") || "Industry",
     },
   });
   const watchedEmail = form.watch("email");
@@ -59,19 +60,19 @@ const SignIn = () => {
   setIsLoading(true);
 
   try {
-    const response = await axios.post(`${API_URL}/api/signin`, {
+    const url = apiRoutes.user.login
+    const response = await axiosInstance.post(url, {
       email: values.email,
       password: values.password,
       type: values.type,
     });
 
-if (response.data.success) {
+if (response.data.status) {
   // Store token in localStorage
-  localStorage.setItem("token", response.data.token);
-
+  localStorage.setItem("token", response.data.meta.access_token);
   // Correct way to log user._id
-  console.log(response.data._id);
-  localStorage.setItem("userId", response.data._id);
+  console.log(response.data.data._id);
+  localStorage.setItem("userInfo", response.data.data);
   // Set user data in context/state if needed
   // userContext.setUser(response.data.user);
 
@@ -216,9 +217,9 @@ if (response.data.success) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="industry">Industry</SelectItem>
-                          <SelectItem value="professional">Professional</SelectItem>
-                          <SelectItem value="vendor">Vendor</SelectItem>
+                          <SelectItem value="Industry">Industry</SelectItem>
+                          <SelectItem value="Professional">Professional</SelectItem>
+                          <SelectItem value="Vendor">Vendor</SelectItem>
                         </SelectContent>
                       </Select>
                       <FormMessage />

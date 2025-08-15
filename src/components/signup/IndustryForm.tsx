@@ -4,10 +4,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
-import { 
-  sendVerificationOtp, 
+import {
+  sendVerificationOtp,
   confirmVerificationOtp,
-  registerIndustryUser 
+  registerIndustryUser
 } from '@/services/AuthServices';
 import { countryCodes, CountryCodeSelectField } from "@/components/ui/CountryCodeSelect";
 import { parsePhoneNumberFromString } from 'libphonenumber-js';
@@ -54,32 +54,32 @@ const formSchema = z.object({
   confirmPassword: z.string(),
   acceptTerms: z.boolean().refine((v) => v === true, { message: "You must accept the terms and conditions" }),
 })
-.refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"],
-})
-.refine(
-  (data) => data.industryType !== "Others" || (data.customIndustryType && data.customIndustryType.trim().length > 0),
-  { message: "Please specify your industry type", path: ["customIndustryType"] }
-)
-.superRefine((data, ctx) => {
-  if (data.countryCode && data.phone.trim() !== "") {
-    const selectedCountry = countryCodes.find(cc => cc.name === data.countryCode);
-    if (!selectedCountry) {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Invalid country selected.", path: ["countryCode"] });
-      return;
-    }
-    const fullPhone = `${selectedCountry.value}${data.phone}`;
-    try {
-      const phoneNumber = parsePhoneNumberFromString(fullPhone);
-      if (!phoneNumber || !phoneNumber.isValid()) {
-        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Invalid phone number for the selected country.", path: ["phone"] });
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  })
+  .refine(
+    (data) => data.industryType !== "Others" || (data.customIndustryType && data.customIndustryType.trim().length > 0),
+    { message: "Please specify your industry type", path: ["customIndustryType"] }
+  )
+  .superRefine((data, ctx) => {
+    if (data.countryCode && data.phone.trim() !== "") {
+      const selectedCountry = countryCodes.find(cc => cc.name === data.countryCode);
+      if (!selectedCountry) {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Invalid country selected.", path: ["countryCode"] });
+        return;
       }
-    } catch {
-      ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Phone number parsing error.", path: ["phone"] });
+      const fullPhone = `${selectedCountry.value}${data.phone}`;
+      try {
+        const phoneNumber = parsePhoneNumberFromString(fullPhone);
+        if (!phoneNumber || !phoneNumber.isValid()) {
+          ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Invalid phone number for the selected country.", path: ["phone"] });
+        }
+      } catch {
+        ctx.addIssue({ code: z.ZodIssueCode.custom, message: "Phone number parsing error.", path: ["phone"] });
+      }
     }
-  }
-});
+  });
 
 export function IndustryForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -136,7 +136,7 @@ export function IndustryForm() {
   const handleSendOtp = async () => {
     const email = form.getValues("email");
     const isEmailValid = await form.trigger("email");
-    
+
     if (!isEmailValid) {
       toast.error("Please enter a valid email address");
       return;
@@ -145,12 +145,12 @@ export function IndustryForm() {
       toast.warning(`Please wait ${otpTimer} seconds before requesting a new OTP`);
       return;
     }
-    
+
     setIsSendingOtp(true);
     try {
       const otpPayload: otppayload = { email: email };
       await sendVerificationOtp(otpPayload);
-      
+
       setOtpSent(true);
       setOtpVerified(false); // Reset verification status
       setOtpTimer(60);
@@ -176,7 +176,7 @@ export function IndustryForm() {
 
     const email = form.getValues("email");
     const otp = form.getValues("otp");
-    
+
     setIsVerifyingOtp(true);
     try {
       await confirmVerificationOtp(email, otp);
@@ -188,33 +188,33 @@ export function IndustryForm() {
       toast.error("Verification Failed", { description: errorMessage });
       form.setError("otp", { type: "manual", message: errorMessage });
     } finally {
-        setIsVerifyingOtp(false);
+      setIsVerifyingOtp(false);
     }
   };
 
   // NEW: Function to allow user to edit email
   const handleEditEmail = () => {
-  setOtpSent(false);
-  setOtpVerified(false);
-  setOtpTimer(0);
-  form.setValue("otp", "");
-  form.clearErrors("otp");
-  form.setFocus("email");
-};
+    setOtpSent(false);
+    setOtpVerified(false);
+    setOtpTimer(0);
+    form.setValue("otp", "");
+    form.clearErrors("otp");
+    form.setFocus("email");
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    if (!otpVerified) {
-      toast.error('Please verify your email first');
-      return;
-    }
-    
+    // if (!otpVerified) {
+    //   toast.error('Please verify your email first');
+    //   return;
+    // }
+    debugger
     setIsSubmitting(true);
     try {
-      const effectiveIndustryType = values.industryType === "Others" 
-        ? values.customIndustryType?.trim() 
+      const effectiveIndustryType = values.industryType === "Others"
+        ? values.customIndustryType?.trim()
         : values.industryType;
       const country = countryCodes.find(cc => cc.name === values.countryCode);
-       
+
       const fullPhone = `${country?.value || ""}${values.phone}`;
 
       await registerIndustryUser({
@@ -223,9 +223,9 @@ export function IndustryForm() {
         phone: fullPhone,
         industryType: effectiveIndustryType!,
         password: values.password,
-        type: 'industry'
+        type: 'Industry'
       });
-      
+
       localStorage.removeItem("industryForm");
       toast.success("Registration successful! Welcome to our platform");
       navigate("/signin?role=industry");
@@ -260,175 +260,73 @@ export function IndustryForm() {
             </FormItem>
           )}
         />
-        {/* {companyNameValue?.trim() !== "" && (
-          <div className="mt-1 p-2 border border-dashed border-input rounded-md bg-secondary/30">
-            <p className="text-xs text-muted-foreground">
-              Company Name: <span className="font-medium text-foreground">{companyNameValue}</span>
-            </p>
-          </div>
-        )} */}
 
         {/* === UPDATED EMAIL AND OTP SECTION === */}
-{/* Email Field */}
-<FormField
-  control={form.control}
-  name="email"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel>Email</FormLabel>
-      <div className="flex items-center gap-2">
-        <FormControl>
-          <Input 
-            placeholder="your@company.com" 
-            {...field} 
-            disabled={otpSent}
-          />
-        </FormControl>
+        {/* Email Field */}
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <div className="flex gap-2 flex-col items-start">
+                <FormControl>
+                  <Input
+                    placeholder="your@company.com"
+                    {...field}
+                  // disabled={otpSent}
+                  />
+                </FormControl>
+                <p className='text-left text-[10px] text-green-500'>Verification link will be sent for verification once registered</p>
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
-        {!otpSent ? (
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={handleSendOtp}
-            disabled={isSendingOtp || !emailValue.trim()}
-            className="flex-shrink-0"
-          >
-            {isSendingOtp ? "Sending..." : "Verify"}
-          </Button>
-        ) : (
-          <div className="flex gap-2">
-            <Button
-              type="button"
-              variant="link"
-              className="p-1 h-auto flex-shrink-0 text-sm"
-              onClick={handleEditEmail}
-            >
-              Change
-            </Button>
-            {otpVerified && (
-              <span className="flex items-center text-sm font-medium text-green-600">
-                <Check className="h-4 w-4 mr-1" />
-                Verified
-              </span>
-            )}
-          </div>
-        )}
-      </div>
-
-      {/* {emailValue.trim() !== "" && (
-        <div className="mt-1 p-2 border border-dashed border-input rounded-md bg-secondary/30">
-          <p className="text-xs text-muted-foreground">
-            Email: <span className="font-medium text-foreground">{emailValue}</span>
-          </p>
-        </div>
-      )} */}
-
-      {otpTimer > 0 && (
-        <p className="text-xs text-muted-foreground mt-2">
-          Resend code in {otpTimer}s
-        </p>
-      )}
-
-      <FormMessage />
-    </FormItem>
-  )}
-/>
-
-{/* OTP Input shown only after OTP is sent */}
-{otpSent && !otpVerified &&(
-  <>
-    <FormField
-      control={form.control}
-      name="otp"
-      render={({ field }) => (
-        <FormItem className="animate-fade-in">
-          <FormLabel>Verification Code</FormLabel>
-          <div className="flex gap-2 items-center">
-            <FormControl>
-              <Input
-                placeholder="Enter 4-digit code"
-                maxLength={4}
-                {...field}
-                onChange={(e) => {
-                  const otp = e.target.value.replace(/\D/g, '').slice(0, 4);
-                  field.onChange(otp);
-                }}
-              />
-            </FormControl>
-            <Button
-              type="button"
-              onClick={handleVerifyOtp}
-              disabled={isVerifyingOtp}
-              className="flex-shrink-0"
-            >
-              {isVerifyingOtp ? "Verifying..." : "Verify"}
-            </Button>
-          </div>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-
-    <div className="mt-2 flex items-center justify-between">
-      {otpTimer > 0 ? (
-        <p className="text-xs text-muted-foreground">
-          Resend code in {otpTimer}s
-        </p>
-      ) : (
-        <Button
-          type="button"
-          variant="ghost"
-          size="sm"
-          onClick={handleSendOtp}
-          disabled={isSendingOtp}
-          className="text-xs"
-        >
-          {isSendingOtp ? "Resending..." : "Resend Code"}
-        </Button>
-      )}
-    </div>
-  </>
-)}
 
         {/* === END OF UPDATED SECTION === */}
 
         {/* Phone Number */}
         <FormItem>
           <FormLabel>Phone Number</FormLabel>
-          <div className="flex items-start space-x-2">
-            <CountryCodeSelectField
-              control={form.control}
-              name="countryCode"
-              onValueChange={handleCountryCodeSelectionChange}
-              className="w-1/3 min-w-[120px]"
-              triggerPlaceholder="Code"
-            />
-            <FormField
-              control={form.control}
-              name="phone"
-              render={({ field }) => (
-                <FormItem className="flex-1">
-                  <FormControl>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input
-                        placeholder={selectedCountry ? selectedCountry.placeholder : "e.g. 9876543210"}
-                        type="tel"
-                        className="pl-10"
-                        maxLength={selectedCountry?.maxLength}
-                        {...field}
-                        onChange={(e) => {
-                          const numericValue = e.target.value.replace(/\D/g, '');
-                          const maxLength = selectedCountry?.maxLength;
-                          field.onChange(maxLength && numericValue.length > maxLength ? numericValue.slice(0, maxLength) : numericValue);
-                        }}
-                      />
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <div className='flex items-start flex-col space-y-2'>
+            <div className="flex items-start space-x-2">
+              <CountryCodeSelectField
+                control={form.control}
+                name="countryCode"
+                onValueChange={handleCountryCodeSelectionChange}
+                className="w-1/3 min-w-[120px]"
+                triggerPlaceholder="Code"
+              />
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem className="flex-1">
+                    <FormControl>
+                      <div className="relative">
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <Input
+                          placeholder={selectedCountry ? selectedCountry.placeholder : "e.g. 9876543210"}
+                          type="tel"
+                          className="pl-10"
+                          maxLength={selectedCountry?.maxLength}
+                          {...field}
+                          onChange={(e) => {
+                            const numericValue = e.target.value.replace(/\D/g, '');
+                            const maxLength = selectedCountry?.maxLength;
+                            field.onChange(maxLength && numericValue.length > maxLength ? numericValue.slice(0, maxLength) : numericValue);
+                          }}
+                        />
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <p className='text-left text-[10px] text-green-500'>Verification link will be sent for verification once registered</p>
           </div>
         </FormItem>
 
@@ -554,16 +452,10 @@ export function IndustryForm() {
         <Button
           type="submit"
           className="w-full hover:scale-[1.02] active:scale-[0.98] transition-transform duration-150"
-          disabled={isSubmitting || !otpVerified}
+          disabled={isSubmitting}
         >
           {isSubmitting ? "Creating Account..." : "Create Account"}
         </Button>
-
-        {!otpVerified && (
-          <p className="text-center text-sm text-muted-foreground">
-            Please verify your email to create an account.
-          </p>
-        )}
       </form>
     </Form>
   );

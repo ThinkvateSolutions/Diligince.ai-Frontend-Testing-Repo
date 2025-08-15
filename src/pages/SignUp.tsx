@@ -47,20 +47,20 @@ const SignUp = () => {
               className="w-full"
             >
               <TabsList className="grid grid-cols-3 mb-8">
-                <TabsTrigger value="industry">Industry</TabsTrigger>
-                <TabsTrigger value="professional">Professional</TabsTrigger>
-                <TabsTrigger value="vendor">Vendor</TabsTrigger>
+                <TabsTrigger value="Industry">Industry</TabsTrigger>
+                <TabsTrigger value="Professional">Professional</TabsTrigger>
+                <TabsTrigger value="Vendor">Vendor</TabsTrigger>
               </TabsList>
               
-              <TabsContent value="industry">
+              <TabsContent value="Industry">
                 <IndustryForm />
               </TabsContent>
               
-              <TabsContent value="professional">
+              <TabsContent value="Professional">
                 <ProfessionalForm />
               </TabsContent>
               
-              <TabsContent value="vendor">
+              <TabsContent value="Vendor">
                 <VendorForm />
               </TabsContent>
             </Tabs>

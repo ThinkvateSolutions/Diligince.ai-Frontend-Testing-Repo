@@ -1,4 +1,6 @@
 // src/services/authService.ts
+import apiRoutes from '@/api/apiRoutes';
+import axiosInstance from '@/api/axiosInstances';
 import axios from 'axios';
 
 // --- CONFIGURATION ---
@@ -96,7 +98,8 @@ export const registerIndustryUser = async (
   payload: IndustryRegistrationPayload
 ): Promise<any> => {
   try {
-    const response = await axios.post(`${API_URL}/api/signup`, payload);
+    const url = apiRoutes.user.register
+    const response = await axiosInstance.post(url, payload);
     return response.data;
   } catch (error) {
     throw handleApiError(error);
