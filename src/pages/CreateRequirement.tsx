@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import IndustryHeader from "@/components/industry/IndustryHeader";
@@ -5,9 +12,21 @@ import RequirementStepIndicator from "@/components/requirement/RequirementStepIn
 import EnhancedBasicInfoStep from "@/components/requirement/steps/EnhancedBasicInfoStep";
 import DetailsStep from "@/components/requirement/steps/DetailsStep";
 import DocumentsStep from "@/components/requirement/steps/DocumentsStep";
+<<<<<<< HEAD
 import PublishStep from "@/components/requirement/steps/PublishStep";
 import PreviewStep from "@/components/requirement/steps/PreviewStep";
 import ApprovalWorkflowStep from "@/components/requirement/steps/ApprovalWorkflowStep";
+=======
+<<<<<<< HEAD
+import ApprovalWorkflowStep from "@/components/requirement/steps/ApprovalWorkflowStep";
+import PreviewStep from "@/components/requirement/steps/PreviewStep";
+import PublishStep from "@/components/requirement/steps/PublishStep";
+=======
+import PublishStep from "@/components/requirement/steps/PublishStep";
+import PreviewStep from "@/components/requirement/steps/PreviewStep";
+import ApprovalWorkflowStep from "@/components/requirement/steps/ApprovalWorkflowStep";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import SuccessScreen from "@/components/requirement/SuccessScreen";
 import { RequirementProvider } from "@/contexts/RequirementContext";
 import { StakeholderProvider } from "@/contexts/StakeholderContext";
@@ -15,11 +34,27 @@ import { ApprovalProvider } from "@/contexts/ApprovalContext";
 import { Toaster } from "@/components/ui/sonner";
 import { ErrorBoundary } from "@/components/shared/ErrorBoundary";
 
+<<<<<<< HEAD
 export type StepType = 1 | 2 | 3 | 4 | 5 | 6 | 7; // Total steps are 7 with success as step 7
 
 const CreateRequirement = () => {
   console.log("CreateRequirement component mounting...");
 
+=======
+<<<<<<< HEAD
+export type StepType = 1 | 2 | 3 | 4 | 5 | 6 | 7;
+
+const CreateRequirement = () => {
+  console.log("CreateRequirement component mounting...");
+  
+=======
+export type StepType = 1 | 2 | 3 | 4 | 5 | 6 | 7; // Total steps are 7 with success as step 7
+
+const CreateRequirement = () => {
+  console.log("CreateRequirement component mounting...");
+
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   const [currentStep, setCurrentStep] = useState<StepType>(1);
   const navigate = useNavigate();
 
@@ -51,9 +86,21 @@ const CreateRequirement = () => {
 
   const renderStep = () => {
     console.log("Rendering step:", currentStep);
+<<<<<<< HEAD
 
     try {
       switch (currentStep) {
+=======
+<<<<<<< HEAD
+    
+    try {
+      switch(currentStep) {
+=======
+
+    try {
+      switch (currentStep) {
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
         case 1:
           return <EnhancedBasicInfoStep onNext={handleNext} />;
         case 2:
@@ -61,6 +108,31 @@ const CreateRequirement = () => {
         case 3:
           return <DocumentsStep onNext={handleNext} onPrevious={handlePrevious} />;
         case 4:
+<<<<<<< HEAD
+          return <PublishStep onNext={handleNext} onPrevious={handlePrevious} />;
+=======
+<<<<<<< HEAD
+          return <ApprovalWorkflowStep onNext={handleNext} onPrevious={handlePrevious} />;
+>>>>>>> 9b0ce35 (Initial commit)
+        case 5:
+          return (
+            <PreviewStep
+              onNext={handleNext}
+              onPrevious={handlePrevious}
+              onEdit={handleGoToStep}
+            />
+          );
+        case 6:
+          return <ApprovalWorkflowStep onNext={handleNext} onPrevious={handlePrevious} />;
+        case 7:
+          return (
+<<<<<<< HEAD
+=======
+            <SuccessScreen 
+              onCreateAnother={() => setCurrentStep(1)} 
+              onViewRequirement={() => navigate("/industry-requirements")} 
+              onReturnToDashboard={handleReturnToDashboard} 
+=======
           return <PublishStep onNext={handleNext} onPrevious={handlePrevious} />;
         case 5:
           return (
@@ -74,10 +146,15 @@ const CreateRequirement = () => {
           return <ApprovalWorkflowStep onNext={handleNext} onPrevious={handlePrevious} />;
         case 7:
           return (
+>>>>>>> 9b0ce35 (Initial commit)
             <SuccessScreen
               onCreateAnother={() => setCurrentStep(1)}
               onViewRequirement={() => navigate("/industry-requirements")}
               onReturnToDashboard={handleReturnToDashboard}
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             />
           );
         default:
@@ -89,6 +166,13 @@ const CreateRequirement = () => {
       return (
         <div className="p-8 text-center">
           <p className="text-red-600 mb-4">Error rendering step {currentStep}</p>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          <p className="text-sm text-gray-600 mb-4">Error: {error instanceof Error ? error.message : 'Unknown error'}</p>
+          <button onClick={() => setCurrentStep(1)} className="px-4 py-2 bg-blue-600 text-white rounded">
+=======
+>>>>>>> 9b0ce35 (Initial commit)
           <p className="text-sm text-gray-600 mb-4">
             Error: {error instanceof Error ? error.message : "Unknown error"}
           </p>
@@ -96,6 +180,10 @@ const CreateRequirement = () => {
             onClick={() => setCurrentStep(1)}
             className="px-4 py-2 bg-blue-600 text-white rounded"
           >
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             Return to Step 1
           </button>
         </div>
@@ -103,6 +191,14 @@ const CreateRequirement = () => {
     }
   };
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+  console.log("Creating provider chain...");
+
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   return (
     <ErrorBoundary>
       <ApprovalProvider>
@@ -121,6 +217,30 @@ const CreateRequirement = () => {
                         Enterprise-grade requirement management system
                       </p>
                     </div>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+                    <div className="text-right">
+                      <p className="text-sm text-gray-500">Draft auto-saved</p>
+                      <p className="text-xs text-gray-400">Last saved: Just now</p>
+                    </div>
+>>>>>>> 9b0ce35 (Initial commit)
+                  </div>
+                </div>
+
+                <RequirementStepIndicator
+                  currentStep={currentStep}
+                  onStepClick={handleGoToStep}
+                />
+
+                <div className="mt-8 rounded-xl bg-white shadow-sm border border-gray-100">
+<<<<<<< HEAD
+                  <div className="p-8">{renderStep()}</div>
+=======
+                  <div className="p-8">
+                    {renderStep()}
+                  </div>
+=======
                   </div>
                 </div>
 
@@ -131,6 +251,8 @@ const CreateRequirement = () => {
 
                 <div className="mt-8 rounded-xl bg-white shadow-sm border border-gray-100">
                   <div className="p-8">{renderStep()}</div>
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
                 </div>
               </div>
               <Toaster />
@@ -142,4 +264,12 @@ const CreateRequirement = () => {
   );
 };
 
+<<<<<<< HEAD
 export default CreateRequirement;
+=======
+<<<<<<< HEAD
+export default CreateRequirement;
+=======
+export default CreateRequirement;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

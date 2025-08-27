@@ -248,9 +248,21 @@ export const logisticsVendorHeaderConfig: HeaderConfig = {
     //   icon: React.createElement(User, { size: 18 })
     // }
   ],
+<<<<<<< HEAD
   avatarInitials: "TL",
   theme: {
     bgColor: "bg-[#eb2f96]",
+=======
+<<<<<<< HEAD
+  avatarInitials: "LV",
+  theme: {
+    bgColor: "bg-[#E83F6F]",
+=======
+  avatarInitials: "TL",
+  theme: {
+    bgColor: "bg-[#eb2f96]",
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     textColor: "text-white",
     hoverColor: "text-gray-600 hover:text-blue-600",
     buttonHoverColor: "hover:bg-gray-100",

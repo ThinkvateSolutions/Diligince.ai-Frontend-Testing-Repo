@@ -1,4 +1,10 @@
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+import React from "react";
+=======
+>>>>>>> 9b0ce35 (Initial commit)
 // import React from "react";
 // import { cn } from "@/lib/utils";
 // import { POStepType } from "@/pages/CreatePurchaseOrder";
@@ -114,6 +120,10 @@
 
 // export default PurchaseOrderStepIndicator;
 import React, { useState, useEffect } from "react";
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import { cn } from "@/lib/utils";
 import { POStepType } from "@/pages/CreatePurchaseOrder";
 
@@ -134,6 +144,11 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
   currentStep,
   onStepClick,
 }) => {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
   const [maxReachedStep, setMaxReachedStep] = useState(currentStep);
 
   useEffect(() => {
@@ -143,6 +158,10 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
   }, [currentStep, maxReachedStep]);
 
 
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   const isStepCompleted = (stepId: number) => {
     return stepId < currentStep;
   };
@@ -152,12 +171,45 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
   };
 
   const isStepAccessible = (stepId: number) => {
+<<<<<<< HEAD
     // Any step that has been reached or is the next one is clickable
     return stepId <= maxReachedStep + 1;
+=======
+<<<<<<< HEAD
+    // First step is always accessible
+    if (stepId === 1) return true;
+    
+    // Current step and previous steps are always accessible
+    if (stepId <= currentStep) return true;
+    
+    // Allow access to the next step
+    return stepId === currentStep + 1;
+=======
+    // Any step that has been reached or is the next one is clickable
+    return stepId <= maxReachedStep + 1;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   };
 
   return (
     <div className="w-full">
+<<<<<<< HEAD
+      {/* --- REPLACEMENT START --- */}
+      {/* New Desktop Step Indicator */}
+=======
+<<<<<<< HEAD
+>>>>>>> 9b0ce35 (Initial commit)
+      <div className="hidden md:block">
+        <div className="flex items-start w-full">
+            {steps.map((step, index) => {
+                const completed = isStepCompleted(step.id);
+                const active = isStepActive(step.id);
+                const accessible = isStepAccessible(step.id);
+
+<<<<<<< HEAD
+=======
+      {/* Mobile version */}
+=======
       {/* --- REPLACEMENT START --- */}
       {/* New Desktop Step Indicator */}
       <div className="hidden md:block">
@@ -167,6 +219,7 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
                 const active = isStepActive(step.id);
                 const accessible = isStepAccessible(step.id);
 
+>>>>>>> 9b0ce35 (Initial commit)
                 const circleClasses = cn(
                     "w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg border-2 transition-colors duration-300",
                     completed ? "bg-green-600 border-green-600 text-white"
@@ -212,6 +265,10 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
 
 
       {/* Mobile version (Unchanged - it's already a great design for mobile) */}
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       <div className="md:hidden">
         <div className="flex items-center justify-between">
           <span className="text-sm font-medium text-gray-700">
@@ -224,7 +281,15 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
         <div className="mt-2 h-2 w-full rounded-full bg-gray-200">
           <div
             className="h-2 rounded-full bg-blue-600"
+<<<<<<< HEAD
             style={{ width: `${((maxReachedStep - 1) / (steps.length - 1)) * 100}%` }}
+=======
+<<<<<<< HEAD
+            style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
+=======
+            style={{ width: `${((maxReachedStep - 1) / (steps.length - 1)) * 100}%` }}
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
           />
         </div>
       </div>
@@ -232,4 +297,12 @@ const PurchaseOrderStepIndicator: React.FC<StepIndicatorProps> = ({
   );
 };
 
+<<<<<<< HEAD
 export default PurchaseOrderStepIndicator;
+=======
+<<<<<<< HEAD
+export default PurchaseOrderStepIndicator;
+=======
+export default PurchaseOrderStepIndicator;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

@@ -17,7 +17,15 @@ import { StakeholderStatusBadge } from "@/components/stakeholder/StakeholderStat
 interface Stakeholder {
   id: string;
   name: string;
+<<<<<<< HEAD
   type: "Product" | "Services" | "Logistics" | "Expert";
+=======
+<<<<<<< HEAD
+  type: "Product Vendor" | "Service Vendor" | "Logistics" | "Expert";
+=======
+  type: "Product" | "Services" | "Logistics" | "Expert";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   rating: number;
   location: string;
   specializations: string[];
@@ -32,7 +40,15 @@ const mockStakeholders: Stakeholder[] = [
   {
     id: "1",
     name: "TechValve Solutions",
+<<<<<<< HEAD
     type: "Product",
+=======
+<<<<<<< HEAD
+    type: "Product Vendor",
+=======
+    type: "Product",
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     rating: 4.8,
     location: "Houston, TX",
     specializations: ["Industrial Valves", "Pressure Systems", "Safety Equipment"],
@@ -58,7 +74,15 @@ const mockStakeholders: Stakeholder[] = [
   {
     id: "3",
     name: "Service Pro Maintenance",
+<<<<<<< HEAD
     type: "Services",
+=======
+<<<<<<< HEAD
+    type: "Service Vendor",
+=======
+    type: "Services",
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     rating: 4.7,
     location: "Austin, TX",
     specializations: ["Equipment Maintenance", "Inspection Services", "Repairs"],
@@ -101,8 +125,18 @@ const IndustryStakeholders = () => {
 
   const getTypeColor = (type: string) => {
     switch (type) {
+<<<<<<< HEAD
       case "Product": return "bg-purple-100 text-purple-800";
       case "Services": return "bg-blue-100 text-blue-800";
+=======
+<<<<<<< HEAD
+      case "Product Vendor": return "bg-purple-100 text-purple-800";
+      case "Service Vendor": return "bg-blue-100 text-blue-800";
+=======
+      case "Product": return "bg-purple-100 text-purple-800";
+      case "Services": return "bg-blue-100 text-blue-800";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       case "Expert": return "bg-green-100 text-green-800";
       case "Logistics": return "bg-amber-100 text-amber-800";
       default: return "bg-gray-100 text-gray-800";
@@ -153,7 +187,18 @@ const IndustryStakeholders = () => {
             </div>
           </div>
           <div className="flex gap-2">
+<<<<<<< HEAD
             
+=======
+<<<<<<< HEAD
+            <Button variant="outline" className="flex items-center gap-2">
+              <Filter className="h-4 w-4" />
+              Filters
+            </Button>
+=======
+            
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             <Button 
               onClick={handleInviteStakeholder}
               className="flex items-center gap-2 bg-blue-600 hover:bg-blue-700"
@@ -167,8 +212,18 @@ const IndustryStakeholders = () => {
         <Tabs value={selectedType} onValueChange={setSelectedType} className="mb-6">
           <TabsList className="grid grid-cols-5 w-full max-w-2xl">
             <TabsTrigger value="all">All ({mockStakeholders.length})</TabsTrigger>
+<<<<<<< HEAD
             <TabsTrigger value="Product">Products</TabsTrigger>
             <TabsTrigger value="Services">Services</TabsTrigger>
+=======
+<<<<<<< HEAD
+            <TabsTrigger value="Product Vendor">Products</TabsTrigger>
+            <TabsTrigger value="Service Vendor">Services</TabsTrigger>
+=======
+            <TabsTrigger value="Product">Products</TabsTrigger>
+            <TabsTrigger value="Services">Services</TabsTrigger>
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             <TabsTrigger value="Expert">Experts</TabsTrigger>
             <TabsTrigger value="Logistics">Logistics</TabsTrigger>
           </TabsList>
@@ -275,6 +330,21 @@ const IndustryStakeholders = () => {
       />
 
       {selectedStakeholder && (
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        <ProjectSelectionModal
+          isOpen={projectModal.isOpen}
+          onClose={() => {
+            projectModal.closeModal();
+            setSelectedStakeholder(null);
+          }}
+          stakeholderName={selectedStakeholder.name}
+          stakeholderId={selectedStakeholder.id}
+        />
+      )}
+=======
+>>>>>>> 9b0ce35 (Initial commit)
       <ProjectSelectionModal
         isOpen={projectModal.isOpen}
         onClose={() => {
@@ -286,6 +356,10 @@ const IndustryStakeholders = () => {
         stakeholderType={selectedStakeholder.type} // important new prop
       />
     )}
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     </div>
   );
 };

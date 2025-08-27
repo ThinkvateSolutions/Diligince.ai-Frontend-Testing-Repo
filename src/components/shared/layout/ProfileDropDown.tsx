@@ -16,8 +16,16 @@ import {
   Box,
   Tag,
   Truck,
+<<<<<<< HEAD
   MapPin,
   Package,
+=======
+<<<<<<< HEAD
+=======
+  MapPin,
+  Package,
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -29,7 +37,15 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useNavigate } from "react-router-dom";
 
+<<<<<<< HEAD
 type ProfileType = "industry" | "professional" | "service-vendor" | "product-vendor"|"logistics-vendor";
+=======
+<<<<<<< HEAD
+type ProfileType = "industry" | "professional" | "service-vendor" | "product-vendor";
+=======
+type ProfileType = "industry" | "professional" | "service-vendor" | "product-vendor"|"logistics-vendor";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 
 interface ProfileDropdownProps {
   userInitials: string;
@@ -112,6 +128,11 @@ const ProfileDropdown = ({ userInitials, profileType }: ProfileDropdownProps) =>
           ],
         };
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
             case "logistics-vendor":
         return {
           name: "TransLog India",
@@ -130,6 +151,10 @@ const ProfileDropdown = ({ userInitials, profileType }: ProfileDropdownProps) =>
           ],
         };
 
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       default:
         return {
           name: "User",
@@ -174,7 +199,14 @@ const ProfileDropdown = ({ userInitials, profileType }: ProfileDropdownProps) =>
           <DropdownMenuItem
             key={label}
             onClick={() => handleNavigation(section)}
+<<<<<<< HEAD
             // The logic to hide items on desktop can be adjusted as needed
+=======
+<<<<<<< HEAD
+=======
+            // The logic to hide items on desktop can be adjusted as needed
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             className={hideOnDesktop ? "md:hidden" : ""}
           >
             {icon}
@@ -196,4 +228,12 @@ const ProfileDropdown = ({ userInitials, profileType }: ProfileDropdownProps) =>
   );
 };
 
+<<<<<<< HEAD
 export default ProfileDropdown;
+=======
+<<<<<<< HEAD
+export default ProfileDropdown;
+=======
+export default ProfileDropdown;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

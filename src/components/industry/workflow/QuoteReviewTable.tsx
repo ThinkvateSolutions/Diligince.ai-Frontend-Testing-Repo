@@ -1,4 +1,13 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
+=======
+<<<<<<< HEAD
+
+import React from 'react';
+=======
+import React, { useState } from 'react';
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,13 +33,26 @@ interface QuoteReviewTableProps {
   aiEvaluations?: Map<string, AIEvaluation>;
 }
 
+<<<<<<< HEAD
 export let isTopPickAvailable = true;
 
+=======
+<<<<<<< HEAD
+=======
+export let isTopPickAvailable = true;
+
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({ 
   quotes, 
   onAcceptQuote, 
   aiEvaluations = new Map() 
 }) => {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
   const [topPickAvailable, setTopPickAvailable] = useState(isTopPickAvailable);
 
   const handleAcceptQuote = (quoteId: string, isTopPick: boolean) => {
@@ -41,6 +63,10 @@ export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({
     onAcceptQuote(quoteId);
   };
 
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   const getRecommendationBadge = (recommendation: AIEvaluation['recommendation']) => {
     switch (recommendation) {
       case 'top_pick':
@@ -88,7 +114,15 @@ export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({
           <TableBody>
             {quotes.map((quote) => {
               const aiEvaluation = aiEvaluations.get(quote.id);
+<<<<<<< HEAD
               const isTopPick = aiEvaluation?.recommendation === 'top_pick' && topPickAvailable;
+=======
+<<<<<<< HEAD
+              const isTopPick = aiEvaluation?.recommendation === 'top_pick';
+=======
+              const isTopPick = aiEvaluation?.recommendation === 'top_pick' && topPickAvailable;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
               
               return (
                 <TableRow 
@@ -162,7 +196,15 @@ export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({
                   </TableCell>
                   <TableCell>
                     <Button 
+<<<<<<< HEAD
                       onClick={() => handleAcceptQuote(quote.id, isTopPick)}
+=======
+<<<<<<< HEAD
+                      onClick={() => onAcceptQuote(quote.id)}
+=======
+                      onClick={() => handleAcceptQuote(quote.id, isTopPick)}
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
                       className={`font-medium ${
                         isTopPick 
                           ? 'bg-yellow-600 hover:bg-yellow-700 text-white' 
@@ -181,4 +223,12 @@ export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({
       </CardContent>
     </Card>
   );
+<<<<<<< HEAD
 };
+=======
+<<<<<<< HEAD
+};
+=======
+};
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

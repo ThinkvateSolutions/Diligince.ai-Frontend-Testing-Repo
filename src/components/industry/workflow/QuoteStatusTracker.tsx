@@ -1,8 +1,22 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Clock, Mail, Eye } from 'lucide-react';
+<<<<<<< HEAD
 import { isTopPickAvailable } from './QuoteReviewTable';
+=======
+<<<<<<< HEAD
+=======
+import { isTopPickAvailable } from './QuoteReviewTable';
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 
 interface RFQStatus {
   stakeholderName: string;
@@ -24,11 +38,20 @@ export const QuoteStatusTracker: React.FC<QuoteStatusTrackerProps> = ({
   totalRFQsSent,
   quotesReceived
 }) => {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
   // Return null if top pick is not available (component will be hidden)
   if (!isTopPickAvailable) {
     return null;
   }
 
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   const getStatusIcon = (status: RFQStatus['quoteStatus']) => {
     switch (status) {
       case 'received':
@@ -50,7 +73,14 @@ export const QuoteStatusTracker: React.FC<QuoteStatusTrackerProps> = ({
         return <Badge className="bg-blue-100 text-blue-800">RFQ Sent</Badge>;
     }
   };
+<<<<<<< HEAD
   
+=======
+<<<<<<< HEAD
+=======
+  
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 
   return (
     <Card className="bg-white shadow-sm border border-gray-200">
@@ -97,4 +127,12 @@ export const QuoteStatusTracker: React.FC<QuoteStatusTrackerProps> = ({
       </CardContent>
     </Card>
   );
+<<<<<<< HEAD
 };
+=======
+<<<<<<< HEAD
+};
+=======
+};
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

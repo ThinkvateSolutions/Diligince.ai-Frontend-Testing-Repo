@@ -28,11 +28,27 @@ const getVendorTypeColor = (vendorType: string) => {
     case 'logistics':
       return {
         avatar: 'bg-blue-100',
+<<<<<<< HEAD
         text: 'text-[#eb2f96]',
         badge: 'bg-[#eb2f96] hover:bg-[#eb2f96]/90 text-white',
         active: 'bg-[#eb2f96]/10 text-[#eb2f96] border-r-4 border-[#eb2f96] font-medium',
         progress: 'bg-[#eb2f96]/10',
         progressIndicator: 'bg-[#eb2f96]'
+=======
+<<<<<<< HEAD
+        text: 'text-blue-600',
+        badge: 'bg-[#eb2f96] hover:bg-[#eb2f96]/90 text-white',
+        active: 'bg-blue-50 text-blue-700 border-r-4 border-blue-600 font-medium',
+        progress: 'bg-blue-100',
+        progressIndicator: 'bg-blue-600'
+=======
+        text: 'text-[#eb2f96]',
+        badge: 'bg-[#eb2f96] hover:bg-[#eb2f96]/90 text-white',
+        active: 'bg-[#eb2f96]/10 text-[#eb2f96] border-r-4 border-[#eb2f96] font-medium',
+        progress: 'bg-[#eb2f96]/10',
+        progressIndicator: 'bg-[#eb2f96]'
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       };
     default:
       return {
@@ -82,7 +98,17 @@ export const BaseSidebar = ({
           <div className="flex flex-col items-center gap-1.5 mt-1">
             {isLogistics ? (
               <>
+<<<<<<< HEAD
                 
+=======
+<<<<<<< HEAD
+                <Badge className="bg-[#eb2f96] hover:bg-[#eb2f96]/90 text-white text-xs">
+                  Logistics Provider
+                </Badge>
+=======
+                
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
                 <Badge variant="secondary" className={`${colors.badge} text-xs`}>
                   {vendorData.specialization}
                 </Badge>

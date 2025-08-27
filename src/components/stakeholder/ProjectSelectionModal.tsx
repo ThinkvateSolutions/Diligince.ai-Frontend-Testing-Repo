@@ -1,6 +1,26 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
+=======
+<<<<<<< HEAD
+
+import React, { useState } from 'react';
+import { BaseModal } from '@/components/shared/modals/BaseModal';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Search, FileText, Calendar, DollarSign, MapPin } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+=======
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+>>>>>>> 9b0ce35 (Initial commit)
 import {
   Dialog,
   DialogContent,
@@ -13,16 +33,36 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Search, FileText, Calendar, DollarSign, MapPin } from 'lucide-react';
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 
 interface Project {
   id: string;
   title: string;
   description: string;
+<<<<<<< HEAD
   category: 'Product' | 'Services' | 'Logistics' | 'Expert';
   budget: number;
   deadline: string;
   location: string;
   status: 'open' | 'in-progress' | 'completed' | 'closed';
+=======
+<<<<<<< HEAD
+  category: 'product' | 'service' | 'logistics' | 'expert';
+  budget: number;
+  deadline: string;
+  location: string;
+  status: 'open' | 'in-progress' | 'closed';
+=======
+  category: 'Product' | 'Services' | 'Logistics' | 'Expert';
+  budget: number;
+  deadline: string;
+  location: string;
+  status: 'open' | 'in-progress' | 'completed' | 'closed';
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   requirements: string[];
 }
 
@@ -31,6 +71,25 @@ interface ProjectSelectionModalProps {
   onClose: () => void;
   stakeholderName: string;
   stakeholderId: string;
+<<<<<<< HEAD
+  stakeholderType: 'Product' | 'Services' | 'Logistics' | 'Expert';
+=======
+<<<<<<< HEAD
+>>>>>>> 9b0ce35 (Initial commit)
+}
+
+export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  stakeholderName, 
+<<<<<<< HEAD
+  stakeholderId,
+  stakeholderType
+}) => {
+=======
+  stakeholderId 
+}: ProjectSelectionModalProps) => {
+=======
   stakeholderType: 'Product' | 'Services' | 'Logistics' | 'Expert';
 }
 
@@ -41,10 +100,50 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
   stakeholderId,
   stakeholderType
 }) => {
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [invitationMessage, setInvitationMessage] = useState('');
+<<<<<<< HEAD
+  const [projects, setProjects] = useState<Project[]>([]);
+=======
+<<<<<<< HEAD
+>>>>>>> 9b0ce35 (Initial commit)
+
+  // Load data from localStorage
+  useEffect(() => {
+    const storedData = localStorage.getItem("requirements-list");
+    if (storedData) {
+      try {
+        const parsed = JSON.parse(storedData);
+        if (Array.isArray(parsed)) {
+          const mappedProjects: Project[] = parsed.map((item: any) => ({
+            id: item.id || "",
+            title: item.title || "Untitled Project",
+            description: item.description || "",
+            category: item.category || "service",
+            budget: item.budget || item.estimatedBudget || 0,
+            deadline: item.deadline || item.endDate || "",
+            location: item.location || item.deliveryLocation || "Not specified",
+            status: (item.status?.toLowerCase() as Project["status"]) || "open",
+            requirements: item.certifications || []
+          }));
+          setProjects(mappedProjects);
+        }
+      } catch (err) {
+        console.error("Error parsing requirements-list from localStorage:", err);
+      }
+    }
+  }, []);
+
+<<<<<<< HEAD
+=======
+  const filteredProjects = mockProjects.filter(project => 
+    project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchTerm.toLowerCase())
+=======
   const [projects, setProjects] = useState<Project[]>([]);
 
   // Load data from localStorage
@@ -73,18 +172,36 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
     }
   }, []);
 
+>>>>>>> 9b0ce35 (Initial commit)
   const filteredProjects = projects.filter(project => 
     (project.category === stakeholderType) &&
     (project.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     project.description.toLowerCase().includes(searchTerm.toLowerCase()))
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   );
 
   const getCategoryColor = (category: string) => {
     switch (category) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      case 'product': return 'bg-purple-100 text-purple-800';
+      case 'service': return 'bg-blue-100 text-blue-800';
+      case 'expert': return 'bg-green-100 text-green-800';
+      case 'logistics': return 'bg-amber-100 text-amber-800';
+=======
+>>>>>>> 9b0ce35 (Initial commit)
       case 'Product': return 'bg-purple-100 text-purple-800';
       case 'Services': return 'bg-blue-100 text-blue-800';
       case 'Expert': return 'bg-green-100 text-green-800';
       case 'Logistics': return 'bg-amber-100 text-amber-800';
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       default: return 'bg-gray-100 text-gray-800';
     }
   };
@@ -99,6 +216,13 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
       return;
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    // Create project-specific invitation
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     const invitationData = {
       stakeholderId,
       stakeholderName,
@@ -114,6 +238,13 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
       description: `${stakeholderName} has been invited to participate in "${selectedProject.title}"`
     });
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    // Navigate to requirement creation with pre-filled data
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     navigate(`/create-requirement?project=${selectedProject.id}&stakeholder=${stakeholderId}`);
     onClose();
   };
@@ -124,6 +255,58 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
   };
 
   return (
+<<<<<<< HEAD
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-4xl">
+        <DialogHeader>
+          <DialogTitle>Invite {stakeholderName} to Project</DialogTitle>
+        </DialogHeader>
+=======
+<<<<<<< HEAD
+    <BaseModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title={`Invite ${stakeholderName} to Project`}
+      maxWidth="max-w-4xl"
+    >
+      <div className="space-y-6">
+        {/* Search */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+          <Input
+            placeholder="Search projects..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+          />
+        </div>
+>>>>>>> 9b0ce35 (Initial commit)
+
+        <div className="space-y-6">
+          {/* Search */}
+          <div className="relative">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+            <Input
+              placeholder="Search projects..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="pl-10"
+            />
+          </div>
+
+<<<<<<< HEAD
+=======
+        {/* Action Buttons */}
+        <div className="flex justify-between items-center pt-4 border-t">
+          <Button
+            onClick={handleCreateNewRequirement}
+            variant="outline"
+          >
+            Create New Requirement
+          </Button>
+          
+          <div className="flex gap-3">
+=======
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
@@ -142,6 +325,7 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
             />
           </div>
 
+>>>>>>> 9b0ce35 (Initial commit)
           {/* Projects List */}
           <div className="max-h-96 overflow-y-auto space-y-4">
             {filteredProjects.map((project) => (
@@ -239,6 +423,10 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
 
           {/* Action Buttons */}
           <div className="flex gap-2 justify-end">
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             <Button
               variant="outline"
               onClick={onClose}
@@ -254,7 +442,21 @@ export const ProjectSelectionModal: React.FC<ProjectSelectionModalProps> = ({
             </Button>
           </div>
         </div>
+<<<<<<< HEAD
       </DialogContent>
     </Dialog>
   );
 };
+=======
+<<<<<<< HEAD
+      </div>
+    </BaseModal>
+  );
+};
+=======
+      </DialogContent>
+    </Dialog>
+  );
+};
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

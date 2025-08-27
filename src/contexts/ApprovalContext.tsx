@@ -1,4 +1,9 @@
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
 // import React, { createContext, useContext, useState, useCallback } from 'react';
 // import { ApprovalRequest, ApprovalWorkflow, ApprovalMatrix } from '@/types/approval';
 // import { RequirementFormData } from './RequirementContext';
@@ -302,6 +307,10 @@
 //   }
 //   return context;
 // };
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import React, { createContext, useContext, useState, useCallback } from 'react';
 import { ApprovalRequest, ApprovalWorkflow, ApprovalMatrix } from '@/types/approval';
 import { RequirementFormData } from './RequirementContext';
@@ -347,7 +356,15 @@ const defaultApprovalMatrix: ApprovalMatrix = {
   },
   critical: {
     budgetThreshold: Infinity,
+<<<<<<< HEAD
     requiredApprovers: ['department_head', 'procurement_manager', 'finance_director', 'CEO'],
+=======
+<<<<<<< HEAD
+    requiredApprovers: ['department_head', 'procurement_manager', 'finance_director', 'ceo'],
+=======
+    requiredApprovers: ['department_head', 'procurement_manager', 'finance_director', 'CEO'],
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     urgentApprovalHours: 96,
     autoEscalationHours: 120,
     complianceRequired: true
@@ -439,8 +456,17 @@ export const ApprovalProvider = ({ children }: { children: React.ReactNode }) =>
     const hasComplianceRequirements = requirement.complianceRequired || false;
     
     // Determine if approval is required
+<<<<<<< HEAD
     // In canPublishRequirement function
     const requiresApproval = requirement.isUrgent || budget > 10000 || priority === 'critical' || priority === 'high' || hasComplianceRequirements;
+=======
+<<<<<<< HEAD
+    const requiresApproval = budget > 10000 || priority === 'critical' || priority === 'high' || hasComplianceRequirements;
+=======
+    // In canPublishRequirement function
+    const requiresApproval = requirement.isUrgent || budget > 10000 || priority === 'critical' || priority === 'high' || hasComplianceRequirements;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     
     if (!requiresApproval) {
       return { canPublish: true };
@@ -456,8 +482,19 @@ export const ApprovalProvider = ({ children }: { children: React.ReactNode }) =>
       };
     }
     
+<<<<<<< HEAD
     // *** THIS IS THE FIX ***
     // The block checking for 'emergency_published' has been removed.
+=======
+<<<<<<< HEAD
+    if (workflow.status === 'emergency_published') {
+      return { canPublish: true };
+    }
+=======
+    // *** THIS IS THE FIX ***
+    // The block checking for 'emergency_published' has been removed.
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     
     if (workflow.status !== 'completed') {
       const pendingApprovers = workflow.approvalRequests
@@ -479,11 +516,23 @@ export const ApprovalProvider = ({ children }: { children: React.ReactNode }) =>
   }, [approvalWorkflows]);
 
   const submitApproval = useCallback((approvalId: string, status: 'approved' | 'rejected', comments?: string) => {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    setApprovalWorkflows(prev => prev.map(workflow => ({
+      ...workflow,
+      approvalRequests: workflow.approvalRequests.map(request => 
+=======
+>>>>>>> 9b0ce35 (Initial commit)
     setApprovalWorkflows(prev => prev.map(workflow => {
       const isRelevantWorkflow = workflow.approvalRequests.some(req => req.id === approvalId);
       if (!isRelevantWorkflow) return workflow;
 
       const updatedRequests = workflow.approvalRequests.map(request => 
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
         request.id === approvalId 
           ? { 
               ...request, 
@@ -493,6 +542,26 @@ export const ApprovalProvider = ({ children }: { children: React.ReactNode }) =>
               digitalSignature: `${request.approverName}-${Date.now()}`
             }
           : request
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      )
+    })));
+    
+    // Update workflow status
+    setApprovalWorkflows(prev => prev.map(workflow => {
+      const updatedRequests = workflow.approvalRequests.map(request => 
+        request.id === approvalId 
+          ? { 
+              ...request, 
+              status, 
+              responseDate: new Date().toISOString(),
+              comments
+            }
+          : request
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       );
       
       const completedApprovals = updatedRequests.filter(req => req.status === 'approved').length;
@@ -545,6 +614,7 @@ export const ApprovalProvider = ({ children }: { children: React.ReactNode }) =>
   }, [approvalWorkflows]);
 
   const emergencyPublish = useCallback(async (requirementId: string) => {
+<<<<<<< HEAD
     let success = false;
     setApprovalWorkflows(prev => prev.map(w => {
       if (w.requirementId === requirementId) {
@@ -568,6 +638,56 @@ export const ApprovalProvider = ({ children }: { children: React.ReactNode }) =>
     }
     return success;
   }, []);
+=======
+<<<<<<< HEAD
+    const workflow = approvalWorkflows.find(w => w.requirementId === requirementId);
+    if (!workflow || !workflow.isUrgent) {
+      toast.error('Emergency publish is only available for urgent requirements');
+      return false;
+    }
+    
+    // Set 48-hour post-approval deadline
+    const emergencyDeadline = new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString();
+    
+    setApprovalWorkflows(prev => prev.map(w => 
+      w.id === workflow.id 
+        ? { 
+            ...w, 
+            status: 'emergency_published',
+            emergencyPublishDeadline: emergencyDeadline
+          }
+        : w
+    ));
+    
+    toast.warning('Requirement published under emergency protocol. Approvals must be obtained within 48 hours.');
+    return true;
+  }, [approvalWorkflows]);
+=======
+    let success = false;
+    setApprovalWorkflows(prev => prev.map(w => {
+      if (w.requirementId === requirementId) {
+        if (!w.isUrgent) {
+          toast.error('Emergency publish is only available for urgent requirements');
+          return w;
+        }
+        success = true;
+        const emergencyDeadline = new Date(Date.now() + 48 * 60 * 60 * 1000).toISOString();
+        return { 
+          ...w, 
+          status: 'emergency_published',
+          emergencyPublishDeadline: emergencyDeadline
+        };
+      }
+      return w;
+    }));
+    
+    if (success) {
+      toast.warning('Requirement published under emergency protocol. Approvals must be obtained within 48 hours.');
+    }
+    return success;
+  }, []);
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 
   return (
     <ApprovalContext.Provider value={{
@@ -593,4 +713,12 @@ export const useApproval = () => {
     throw new Error('useApproval must be used within an ApprovalProvider');
   }
   return context;
+<<<<<<< HEAD
 };
+=======
+<<<<<<< HEAD
+};
+=======
+};
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

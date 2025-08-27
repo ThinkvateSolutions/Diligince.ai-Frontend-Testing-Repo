@@ -1,4 +1,9 @@
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
 // import React, { useState } from 'react';
 // import { BaseModal } from '@/components/shared/modals/BaseModal';
 // import { Button } from '@/components/ui/button';
@@ -145,6 +150,10 @@
 //   );
 // };
 
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import React, { useState } from 'react';
 import { BaseModal } from '@/components/shared/modals/BaseModal';
 import { Button } from '@/components/ui/button';
@@ -174,8 +183,16 @@ export const SendRFQModal = ({
     onClose();
   };
 
+<<<<<<< HEAD
   
 
+=======
+<<<<<<< HEAD
+=======
+  
+
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   const getStakeholderTypeColor = (type: string) => {
     switch (type) {
       case 'Product Vendor':

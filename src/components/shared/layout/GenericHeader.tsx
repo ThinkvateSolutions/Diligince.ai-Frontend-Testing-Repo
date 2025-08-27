@@ -11,12 +11,27 @@ interface GenericHeaderProps {
   config: HeaderConfig;
   className?: string;
 }
+<<<<<<< HEAD
 const getProfileTypeFromHref = (href: string): "industry" | "professional" | "service-vendor" | "product-vendor"|"logistics-vendor" | null => {
+=======
+<<<<<<< HEAD
+const getProfileTypeFromHref = (href: string): "industry" | "professional" | "service-vendor" | "product-vendor" | null => {
+=======
+const getProfileTypeFromHref = (href: string): "industry" | "professional" | "service-vendor" | "product-vendor"|"logistics-vendor" | null => {
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   if (href.includes("industry")) return "industry";
   if (href.includes("professional")) return "professional";
   if (href.includes("service-vendor")) return "service-vendor";
   if (href.includes("product-vendor")) return "product-vendor";
+<<<<<<< HEAD
   if (href.includes("logistics-vendor")) return "logistics-vendor";
+=======
+<<<<<<< HEAD
+=======
+  if (href.includes("logistics-vendor")) return "logistics-vendor";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
   return null;
 };
 
@@ -41,10 +56,20 @@ const getThemeFromHref = (href: string) => {
     };
   } else if (href.includes("logistics-vendor")) {
     return {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+      navActiveBg: "bg-[#D13865]",
+=======
+>>>>>>> 9b0ce35 (Initial commit)
       // navActiveBg: "bg-[#eb2f96]",
       // navHoverBg: "hover:bg-[#F58BAD]",
       // layout: "w-full px-[50px]",
       navActiveBg: "bg-[#eb2f96]",
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       navHoverBg: "hover:bg-[#F58BAD]",
       layout: "w-full px-[50px]",
     };

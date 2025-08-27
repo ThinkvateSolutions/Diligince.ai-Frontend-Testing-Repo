@@ -393,6 +393,11 @@
 .form-field-animate:focus-within {
   transform: translateY(-2px);
 }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> 9b0ce35 (Initial commit)
 
 .custom-scrollbar::-webkit-scrollbar {
   width: 8px; /* Width of the entire scrollbar */
@@ -418,3 +423,7 @@
   scrollbar-width: thin;
   scrollbar-color: #d1d5db transparent; /* thumb color track color */
 }
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

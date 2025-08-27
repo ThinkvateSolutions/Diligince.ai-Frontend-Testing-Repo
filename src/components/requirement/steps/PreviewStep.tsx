@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import React from "react";
 // import { useRequirement } from "@/contexts/RequirementContext";
 // import { Button } from "@/components/ui/button";
@@ -19,6 +20,32 @@
 // import { Badge } from "@/components/ui/badge";
 // import { toast } from "sonner";
 
+=======
+<<<<<<< HEAD
+
+=======
+// import React from "react";
+// import { useRequirement } from "@/contexts/RequirementContext";
+// import { Button } from "@/components/ui/button";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { format } from "date-fns";
+// import { 
+//   Package, 
+//   User, 
+//   Wrench, 
+//   Truck, 
+//   Edit, 
+//   File, 
+//   Globe, 
+//   CalendarDays, 
+//   Users, 
+//   ClipboardCheck
+// } from "lucide-react";
+// import { StepType } from "@/pages/CreateRequirement";
+// import { Badge } from "@/components/ui/badge";
+// import { toast } from "sonner";
+
+>>>>>>> 9b0ce35 (Initial commit)
 // interface PreviewStepProps {
 //   onNext: () => void;
 //   onPrevious: () => void;
@@ -408,11 +435,16 @@
 // };
 
 // export default PreviewStep;
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 import React from "react";
 import { useRequirement } from "@/contexts/RequirementContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { format } from "date-fns";
+<<<<<<< HEAD
 import { 
   Package, 
   User, 
@@ -429,6 +461,29 @@ import {
 import { StepType } from "@/pages/CreateRequirement";
 import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
+=======
+<<<<<<< HEAD
+import { Package, User, Wrench, Truck, Edit, File } from "lucide-react";
+import { StepType } from "@/pages/CreateRequirement";
+=======
+import { 
+  Package, 
+  User, 
+  Wrench, 
+  Truck, 
+  Edit, 
+  File, 
+  Eye,
+  Globe, 
+  CalendarDays, 
+  Users, 
+  ClipboardCheck
+} from "lucide-react";
+import { StepType } from "@/pages/CreateRequirement";
+import { Badge } from "@/components/ui/badge";
+import { toast } from "sonner";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
 
 interface PreviewStepProps {
   onNext: () => void;
@@ -441,6 +496,46 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
   onPrevious,
   onEdit 
 }) => {
+<<<<<<< HEAD
+  const { formData, saveAsDraft, isWorkflowLocked } = useRequirement();
+
+  const handleSaveAsDraft = async () => {
+    if (isWorkflowLocked) {
+      toast.error("Cannot save draft after workflow is confirmed.");
+      return;
+    }
+
+    if (!formData.title || formData.title.trim() === '') {
+      toast.error("A title is required to save a draft.");
+      return;
+    }
+    
+    try {
+      await saveAsDraft();
+      toast.success("Draft saved successfully!");
+    } catch (error) {
+      console.error("Error saving draft:", error);
+      toast.error("Failed to save draft. Please try again.");
+    }
+  };
+=======
+<<<<<<< HEAD
+  const { formData } = useRequirement();
+>>>>>>> 9b0ce35 (Initial commit)
+
+  const getCategoryIcon = () => {
+    switch (formData.category) {
+      case "Expert":
+        return <User className="h-5 w-5 text-blue-600" />;
+      case "Product":
+        return <Package className="h-5 w-5 text-green-600" />;
+      case "Services":
+        return <Wrench className="h-5 w-5 text-purple-600" />;
+<<<<<<< HEAD
+      case "Logistics":
+=======
+      case "logistics":
+=======
   const { formData, saveAsDraft, isWorkflowLocked } = useRequirement();
 
   const handleSaveAsDraft = async () => {
@@ -472,12 +567,30 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
       case "Services":
         return <Wrench className="h-5 w-5 text-purple-600" />;
       case "Logistics":
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
         return <Truck className="h-5 w-5 text-orange-600" />;
       default:
         return null;
     }
   };
 
+<<<<<<< HEAD
+  const formatDate = (date: Date | null | undefined) => {
+=======
+<<<<<<< HEAD
+  const formatDate = (date: Date | null) => {
+>>>>>>> 9b0ce35 (Initial commit)
+    if (!date) return "Not specified";
+    return format(new Date(date), "dd-MM-yyyy");
+  };
+
+  const formatList = (list: string[] | undefined) => {
+<<<<<<< HEAD
+    if (!list || list.length === 0) return "None specified";
+=======
+    if (!list || list.length === 0) return "None";
+=======
   const formatDate = (date: Date | null | undefined) => {
     if (!date) return "Not specified";
     return format(new Date(date), "dd-MM-yyyy");
@@ -485,12 +598,23 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
 
   const formatList = (list: string[] | undefined) => {
     if (!list || list.length === 0) return "None specified";
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
     return list.join(", ");
   };
 
   return (
     <div className="space-y-8">
       <div className="space-y-4">
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+        <h2 className="text-xl font-semibold text-gray-900">Preview Requirement</h2>
+        <p className="text-gray-600">
+          Review all details before publishing your requirement
+        </p>
+=======
+>>>>>>> 9b0ce35 (Initial commit)
         <div className="flex items-center justify-between">
           <div>
             <h2 className="text-2xl font-bold text-gray-900">Preview Requirement</h2>
@@ -514,12 +638,30 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
             )}
           </div>
         </div>
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       </div>
 
       {/* Basic Info Summary */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-lg font-medium">Basic Information</CardTitle>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+            onClick={() => onEdit(1)}
+          >
+            <Edit className="h-4 w-4" />
+            <span>Edit</span>
+          </Button>
+=======
+>>>>>>> 9b0ce35 (Initial commit)
           {isWorkflowLocked ? (
             <Button 
               variant="ghost" 
@@ -541,17 +683,37 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
               <span>Edit</span>
             </Button>
           )}
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
               <h3 className="text-xl font-semibold text-gray-900">
+<<<<<<< HEAD
                 {formData.title || "Untitled Requirement"}
+=======
+<<<<<<< HEAD
+                {formData.title}
+=======
+                {formData.title || "Untitled Requirement"}
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
               </h3>
             </div>
             <div className="flex items-center gap-2 text-sm font-medium text-gray-600">
               {getCategoryIcon()}
+<<<<<<< HEAD
               <span className="capitalize">{formData.category || "No Category"}</span>
+=======
+<<<<<<< HEAD
+              <span className="capitalize">{formData.category}</span>
+=======
+              <span className="capitalize">{formData.category || "No Category"}</span>
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             </div>
           </div>
         </CardContent>
@@ -561,6 +723,7 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-lg font-medium">Requirement Details</CardTitle>
+<<<<<<< HEAD
           {isWorkflowLocked ? (
             <Button 
               variant="ghost" 
@@ -586,6 +749,49 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
         <CardContent>
           <div className="space-y-6">
             {(formData.category === "Expert") && (
+=======
+<<<<<<< HEAD
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+            onClick={() => onEdit(2)}
+          >
+            <Edit className="h-4 w-4" />
+            <span>Edit</span>
+          </Button>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {formData.category === "expert" && (
+=======
+          {isWorkflowLocked ? (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+              onClick={() => onEdit(2)}
+            >
+              <Eye className="h-4 w-4 text-blue-500" />
+              <span>View</span>
+            </Button>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+              onClick={() => onEdit(2)}
+            >
+              <Edit className="h-4 w-4" />
+              <span>Edit</span>
+            </Button>
+          )}
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6">
+            {(formData.category === "Expert") && (
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
               <>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
@@ -624,7 +830,15 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
               </>
             )}
 
+<<<<<<< HEAD
             {(formData.category === "Product") && (
+=======
+<<<<<<< HEAD
+            {formData.category === "product" && (
+=======
+            {(formData.category === "Product") && (
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
               <>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Product Specifications</p>
@@ -653,7 +867,15 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
               </>
             )}
 
+<<<<<<< HEAD
             {(formData.category === "Services") && (
+=======
+<<<<<<< HEAD
+            {formData.category === "service" && (
+=======
+            {(formData.category === "Services") && (
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
               <>
                 <div>
                   <p className="text-sm font-medium text-gray-500">Service Description</p>
@@ -666,7 +888,15 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
                     <p className="text-sm font-medium text-gray-500">Budget</p>
+<<<<<<< HEAD
                     <p className="mt-1">{formData.budget ? `$${formData.budget.toLocaleString()}` : "Not specified"}</p>
+=======
+<<<<<<< HEAD
+                    <p className="mt-1">{formData.serviceBudget ? `$${formData.serviceBudget.toLocaleString()}` : "Not specified"}</p>
+=======
+                    <p className="mt-1">{formData.budget ? `$${formData.budget.toLocaleString()}` : "Not specified"}</p>
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
                   </div>
                   <div>
                     <p className="text-sm font-medium text-gray-500">Location</p>
@@ -686,7 +916,15 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
               </>
             )}
 
+<<<<<<< HEAD
             {(formData.category === "Logistics") && (
+=======
+<<<<<<< HEAD
+            {formData.category === "logistics" && (
+=======
+            {(formData.category === "Logistics") && (
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
               <>
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                   <div>
@@ -738,6 +976,7 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-lg font-medium">Documents</CardTitle>
+<<<<<<< HEAD
           {isWorkflowLocked ? (
             <Button 
               variant="ghost" 
@@ -762,6 +1001,47 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
         </CardHeader>
         <CardContent>
           {formData.documents && formData.documents.length === 0 ? (
+=======
+<<<<<<< HEAD
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+            onClick={() => onEdit(3)}
+          >
+            <Edit className="h-4 w-4" />
+            <span>Edit</span>
+          </Button>
+        </CardHeader>
+        <CardContent>
+          {formData.documents.length === 0 ? (
+=======
+          {isWorkflowLocked ? (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+              onClick={() => onEdit(3)}
+            >
+              <Eye className="h-4 w-4 text-blue-500" />
+              <span>View</span>
+            </Button>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+              onClick={() => onEdit(3)}
+            >
+              <Edit className="h-4 w-4" />
+              <span>Edit</span>
+            </Button>
+          )}
+        </CardHeader>
+        <CardContent>
+          {formData.documents && formData.documents.length === 0 ? (
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
             <p className="text-gray-500">No documents attached</p>
           ) : (
             <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
@@ -790,6 +1070,97 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
         </CardContent>
       </Card>
 
+<<<<<<< HEAD
+      {/* Publish Settings Summary */}
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-lg font-medium">Publish Settings</CardTitle>
+          {isWorkflowLocked ? (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+              onClick={() => onEdit(4)}
+            >
+              <Eye className="h-4 w-4 text-blue-500"  />
+              <span>View</span>
+            </Button>
+          ) : (
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-8 gap-1 text-gray-500 hover:text-blue-600"
+              onClick={() => onEdit(4)}
+            >
+              <Edit className="h-4 w-4" />
+              <span>Edit</span>
+            </Button>
+          )}
+        </CardHeader>
+        <CardContent className="pt-4 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex items-start gap-3">
+              <Globe className="h-5 w-5 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">Visibility</p>
+                <p className="mt-1 capitalize">{formData.visibility === 'selected' ? 'Selected Vendors Only' : 'All Relevant Vendors'}</p>
+              </div>
+            </div>
+            <div className="flex items-start gap-3">
+              <CalendarDays className="h-5 w-5 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">Submission Deadline</p>
+                <p className="mt-1">{formatDate(formData.submissionDeadline)}</p>
+              </div>
+            </div>
+          </div>
+          {formData.visibility === 'selected' && (
+            <div className="flex items-start gap-3 pt-2">
+              <Users className="h-5 w-5 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">Invited Vendors</p>
+                <p className="mt-1">{formatList(formData.invitedSuppliers) || "No vendors selected"}</p>
+              </div>
+            </div>
+          )}
+          <div className="space-y-3 pt-2">
+            <div className="flex items-start gap-3">
+              <ClipboardCheck className="h-5 w-5 text-gray-400 mt-0.5" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">Evaluation Criteria</p>
+                {formData.evaluationCriteria && formData.evaluationCriteria.length > 0 ? (
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {formData.evaluationCriteria.map(criterion => (
+                      <Badge key={criterion} variant="secondary">{criterion}</Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="mt-1">No criteria selected</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+      
+      <div className="flex justify-between items-center w-full pt-6">
+=======
+<<<<<<< HEAD
+      <div className="flex justify-between pt-6">
+>>>>>>> 9b0ce35 (Initial commit)
+        <Button 
+          variant="outline" 
+          onClick={onPrevious}
+          // disabled={isWorkflowLocked}
+        >
+          Previous
+        </Button>
+<<<<<<< HEAD
+=======
+        <Button onClick={onNext}>
+          Next
+        </Button>
+=======
       {/* Publish Settings Summary */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between pb-2">
@@ -870,6 +1241,7 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
         >
           Previous
         </Button>
+>>>>>>> 9b0ce35 (Initial commit)
 
         <div className="flex items-center gap-x-3">
           <Button 
@@ -887,9 +1259,21 @@ const PreviewStep: React.FC<PreviewStepProps> = ({
             Proceed to Approval Workflow
           </Button>
         </div>
+<<<<<<< HEAD
+=======
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       </div>
     </div>
   );
 };
 
+<<<<<<< HEAD
 export default PreviewStep;
+=======
+<<<<<<< HEAD
+export default PreviewStep;
+=======
+export default PreviewStep;
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)

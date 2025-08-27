@@ -33,10 +33,24 @@ export const LogisticsVendorSidebar = ({
   const menuItems = [
     { id: "company-info", label: "Company Info", icon: <User className="h-5 w-5" /> },
     { 
+<<<<<<< HEAD
       id: "fleet-equipments", 
       label: specialization === 'heavy-equipment' || specialization === 'crane-services' 
         ? 'Equipments & Fleet' 
         : 'Fleet & Equipments',
+=======
+<<<<<<< HEAD
+      id: "fleet-equipment", 
+      label: specialization === 'heavy-equipment' || specialization === 'crane-services' 
+        ? 'Equipment & Fleet' 
+        : 'Fleet & Equipment',
+=======
+      id: "fleet-equipments", 
+      label: specialization === 'heavy-equipment' || specialization === 'crane-services' 
+        ? 'Equipments & Fleet' 
+        : 'Fleet & Equipments',
+>>>>>>> 12f1a3e (Initial commit)
+>>>>>>> 9b0ce35 (Initial commit)
       icon: <Truck className="h-5 w-5" />
     },
     { id: "service-areas", label: "Service Areas", icon: <MapPin className="h-5 w-5" /> },
