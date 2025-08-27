@@ -1,0 +1,420 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 214 100% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* User Type Color Tokens */
+    --industry-50: 259 100% 98%;
+    --industry-100: 258 100% 94%;
+    --industry-200: 258 96% 87%;
+    --industry-300: 258 94% 77%;
+    --industry-400: 258 92% 65%;
+    --industry-500: 258 90% 53%;
+    --industry-600: 258 83% 47%;
+    --industry-700: 258 75% 42%;
+    --industry-800: 258 69% 35%;
+    --industry-900: 258 66% 29%;
+    --industry-foreground: 0 0% 100%;
+
+    --professional-50: 258 100% 98%;
+    --professional-100: 258 100% 94%;
+    --professional-200: 258 96% 87%;
+    --professional-300: 258 94% 77%;
+    --professional-400: 258 92% 65%;
+    --professional-500: 258 90% 53%;
+    --professional-600: 258 83% 47%;
+    --professional-700: 258 75% 42%;
+    --professional-800: 258 69% 35%;
+    --professional-900: 258 66% 29%;
+    --professional-foreground: 0 0% 100%;
+
+    --vendor-50: 120 60% 98%;
+    --vendor-100: 120 60% 93%;
+    --vendor-200: 120 58% 85%;
+    --vendor-300: 120 56% 74%;
+    --vendor-400: 120 53% 62%;
+    --vendor-500: 120 50% 51%;
+    --vendor-600: 120 43% 45%;
+    --vendor-700: 120 37% 39%;
+    --vendor-800: 120 32% 32%;
+    --vendor-900: 120 28% 26%;
+    --vendor-foreground: 0 0% 100%;
+
+    --admin-50: 0 86% 98%;
+    --admin-100: 0 86% 93%;
+    --admin-200: 0 84% 85%;
+    --admin-300: 0 82% 74%;
+    --admin-400: 0 79% 62%;
+    --admin-500: 0 76% 51%;
+    --admin-600: 0 69% 45%;
+    --admin-700: 0 63% 39%;
+    --admin-800: 0 58% 32%;
+    --admin-900: 0 54% 26%;
+    --admin-foreground: 0 0% 100%;
+
+    /* Status Color Tokens */
+    --status-success: 142 76% 36%;
+    --status-warning: 45 93% 47%;
+    --status-error: 0 84% 60%;
+    --status-info: 221 83% 53%;
+    --status-pending: 45 93% 62%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Dark mode adjustments for user types */
+    --industry-50: 259 66% 8%;
+    --industry-500: 258 90% 70%;
+    --industry-foreground: 259 100% 98%;
+
+    --professional-50: 258 66% 8%;
+    --professional-500: 258 90% 70%;
+    --professional-foreground: 258 100% 98%;
+
+    --vendor-50: 120 28% 8%;
+    --vendor-500: 120 50% 70%;
+    --vendor-foreground: 120 60% 98%;
+
+    --admin-50: 0 54% 8%;
+    --admin-500: 0 76% 70%;
+    --admin-foreground: 0 86% 98%;
+
+    /* Dark mode status colors */
+    --status-success: 142 76% 50%;
+    --status-warning: 45 93% 60%;
+    --status-error: 0 84% 70%;
+    --status-info: 221 83% 70%;
+    --status-pending: 45 93% 70%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Roboto', sans-serif;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-bold tracking-tight;
+  }
+
+  h1 { @apply text-4xl md:text-5xl lg:text-6xl; }
+  h2 { @apply text-3xl md:text-4xl lg:text-5xl; }
+  h3 { @apply text-2xl md:text-3xl lg:text-4xl; }
+  h4 { @apply text-xl md:text-2xl lg:text-3xl; }
+  h5 { @apply text-lg md:text-xl lg:text-2xl; }
+  h6 { @apply text-base md:text-lg lg:text-xl; }
+}
+
+/* Component Design System */
+@layer components {
+  /* User Type Themed Cards */
+  .card-industry {
+    @apply bg-industry-50 border-industry-200 text-industry-900;
+  }
+
+  .card-professional {
+    @apply bg-professional-50 border-professional-200 text-professional-900;
+  }
+
+  .card-vendor {
+    @apply bg-vendor-50 border-vendor-200 text-vendor-900;
+  }
+
+  .card-admin {
+    @apply bg-admin-50 border-admin-200 text-admin-900;
+  }
+
+  /* User Type Themed Buttons */
+  .btn-industry {
+    @apply bg-industry-500 hover:bg-industry-600 text-industry-foreground border-industry-600;
+  }
+
+  .btn-professional {
+    @apply bg-professional-500 hover:bg-professional-600 text-professional-foreground border-professional-600;
+  }
+
+  .btn-vendor {
+    @apply bg-vendor-500 hover:bg-vendor-600 text-vendor-foreground border-vendor-600;
+  }
+
+  .btn-admin {
+    @apply bg-admin-500 hover:bg-admin-600 text-admin-foreground border-admin-600;
+  }
+
+  /* Status Badges */
+  .badge-success {
+    @apply bg-green-100 text-green-800 border-green-200;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 text-yellow-800 border-yellow-200;
+  }
+
+  .badge-error {
+    @apply bg-red-100 text-red-800 border-red-200;
+  }
+
+  .badge-info {
+    @apply bg-blue-100 text-blue-800 border-blue-200;
+  }
+
+  .badge-pending {
+    @apply bg-orange-100 text-orange-800 border-orange-200;
+  }
+
+  /* Layout Components */
+  .section-padding {
+    @apply py-16 lg:py-24;
+  }
+
+  .container-responsive {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .card-elevated {
+    @apply bg-card border border-border rounded-lg shadow-soft p-6;
+  }
+
+  .card-interactive {
+    @apply card-elevated hover:shadow-medium transition-all duration-200 cursor-pointer;
+  }
+
+  /* Form Components */
+  .form-field {
+    @apply space-y-2;
+  }
+
+  .form-label {
+    @apply text-sm font-medium text-foreground;
+  }
+
+  .form-input {
+    @apply flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .form-error {
+    @apply text-sm text-destructive;
+  }
+
+  /* Navigation Components */
+  .nav-link {
+    @apply relative inline-flex items-center px-4 py-2 text-sm font-medium rounded-md transition-colors hover:bg-accent hover:text-accent-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  }
+
+  .nav-link-active {
+    @apply nav-link bg-accent text-accent-foreground;
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+
+  .animate-stagger {
+    opacity: 0;
+    animation: fade-in 0.3s ease-out forwards;
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 2s infinite;
+  }
+
+  /* Staggered animations for multiple elements */
+  .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+  .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+  .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+  .stagger-item:nth-child(4) { animation-delay: 0.4s; }
+  .stagger-item:nth-child(5) { animation-delay: 0.5s; }
+  .stagger-item:nth-child(6) { animation-delay: 0.6s; }
+
+  /* Utility Classes */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari and Opera */
+}
+
+/* Additional custom styles */
+.hero-btn {
+  @apply transition-all duration-300 animate-pulse-subtle;
+}
+
+.feature-card {
+  @apply transition-all duration-300;
+}
+
+/* Advanced animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInStagger {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseSubtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.03);
+  }
+}
+
+/* Material Design 3 inspired card styles */
+.material-card {
+  @apply bg-white rounded-lg shadow-md transition-all duration-300;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.material-card:hover {
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* Form field animations */
+.form-field-animate {
+  transition: all 0.3s ease;
+}
+
+.form-field-animate:focus-within {
+  transform: translateY(-2px);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px; /* Width of the entire scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Color of the tracking area */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #d1d5db; /* Color of the scroll thumb (light gray) */
+  border-radius: 20px; /* How rounded the scroll thumb is */
+  border: 3px solid transparent; /* Creates padding around the scroll thumb */
+  background-clip: content-box;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #9ca3af; /* Color of the scroll thumb on hover (medium gray) */
+}
+
+/* For Firefox */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db transparent; /* thumb color track color */
+}
