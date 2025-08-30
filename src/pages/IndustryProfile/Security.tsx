@@ -199,7 +199,7 @@ type TwoFactorSettings = z.infer<typeof twoFactorSchema>;
 const [showInfo, setShowInfo] = useState(false);
   return (
     <>
-     <div className="p-4">
+     <div className="p-4 m-5 bg-white">
   <div className="flex flex-col">
     {/* Title + Info */}
     <div className="flex items-center">
@@ -224,7 +224,7 @@ const [showInfo, setShowInfo] = useState(false);
     </div>
   </div>
 </div>
-      <CardContent>
+      <CardContent className='bg-white m-6'>
         <Tabs defaultValue="password">
           <TabsList className="grid grid-cols-5 mb-6">
             <TabsTrigger value="password" className="flex items-center gap-2">

@@ -21,7 +21,7 @@ import { Info } from "lucide-react";
 
 
 const indianStatesAndCities: Record<string, string[]> = {
-   "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati", "Kakinada", "Rajahmundry", "Nellore", "Kurnool"],
+  "Andhra Pradesh": ["Visakhapatnam", "Vijayawada", "Guntur", "Tirupati", "Kakinada", "Rajahmundry", "Nellore", "Kurnool"],
   "Arunachal Pradesh": ["Itanagar", "Naharlagun", "Tawang", "Pasighat", "Ziro"],
   "Assam": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat", "Nagaon", "Tinsukia", "Tezpur"],
   "Bihar": ["Patna", "Gaya", "Bhagalpur", "Muzaffarpur", "Darbhanga", "Purnia", "Arrah", "Begusarai"],
@@ -73,9 +73,9 @@ const addressSchema = z.object({
   line1: z.string().min(5, { message: "Required" }),
   city: z.string().min(1, { message: "Required" }),
   state: z.string().min(1, { message: "Required" }),
-   pincode: z
+  pincode: z
     .string()
-    .min(1, { message: "Required" }) 
+    .min(1, { message: "Required" })
     .regex(/^\d{6}$/, { message: "Please enter a valid 6-digit pincode" }),
   isPrimary: z.boolean().default(false).optional(),
 });
@@ -124,7 +124,7 @@ const companySchema = z.object({
 
   website: z.string().optional(), // Optional
 });
-// ❌ REMOVE the `.refine()` at the end (no longer needed)
+
 
 type FormValues = z.infer<typeof companySchema>;
 
@@ -162,14 +162,14 @@ const defaultValues: FormValues = {
   ],
   warehouseLocations: ["", ""],
   yearEstablished: "",
-  website:"",
+  website: "",
 };
 
 
 const CompanyInfoForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  
+
   // (State for verifications remains the same)
   const [isVerifyingGst, setIsVerifyingGst] = useState(false);
   const [gstVerificationStatus, setGstVerificationStatus] = useState<'idle' | 'success' | 'not_found' | 'error'>('idle');
@@ -188,7 +188,7 @@ const CompanyInfoForm = () => {
   const [showMobileOtpInput, setShowMobileOtpInput] = useState(false);
   const [mobileOtp, setMobileOtp] = useState("");
   const [mobileTimer, setMobileTimer] = useState(0);
-  
+
   const form = useForm<FormValues>({
     resolver: zodResolver(companySchema),
     defaultValues,
@@ -212,9 +212,9 @@ const CompanyInfoForm = () => {
   const handleVerifyRegNo = async () => { const isFormatValid = await form.trigger("registrationNumber"); if (!isFormatValid) return; const regNoValue = form.getValues("registrationNumber"); if (!regNoValue) return; setIsVerifyingRegNo(true); setRegNoVerificationStatus('idle'); setTimeout(() => { if (regNoValue.toUpperCase().includes('FAIL')) { setRegNoVerificationStatus('error'); toast.error("Registration Number could not be verified."); } else { setRegNoVerificationStatus('success'); toast.success("Registration Number verified successfully!"); } setIsVerifyingRegNo(false); }, 1500); };
   const handleSendOtp = async (type: 'email' | 'mobile') => { const fieldIsValid = await form.trigger(type); if (!fieldIsValid) return; if (type === 'email') { setIsSendingEmailOtp(true); setTimeout(() => { setIsSendingEmailOtp(false); setShowEmailOtpInput(true); setEmailTimer(30); toast.success(`OTP sent to ${form.getValues("email")}`); }, 1000); } else { setIsSendingMobileOtp(true); setTimeout(() => { setIsSendingMobileOtp(false); setShowMobileOtpInput(true); setMobileTimer(30); toast.success(`OTP sent to ${form.getValues("mobile")}`); }, 1000); } };
   const handleVerifyOtp = async (type: 'email' | 'mobile') => { const otpValue = type === 'email' ? emailOtp : mobileOtp; if (otpValue !== '1234') { toast.error("Invalid OTP. Please try again."); return; } if (type === 'email') { setIsVerifyingEmailOtp(true); setTimeout(() => { setEmailVerified(true); setShowEmailOtpInput(false); toast.success("Email verified successfully!"); setIsVerifyingEmailOtp(false); }, 1000); } else { setIsVerifyingMobileOtp(true); setTimeout(() => { setMobileVerified(true); setShowMobileOtpInput(false); toast.success("Mobile number verified successfully!"); setIsVerifyingMobileOtp(false); }, 1000); } };
-  
 
-const [showInfo, setShowInfo] = useState(false);
+
+  const [showInfo, setShowInfo] = useState(false);
 
   const onSubmit = (values: FormValues) => {
     if (isEditing && (!emailVerified || (form.getValues("mobile") && !mobileVerified))) {
@@ -234,10 +234,10 @@ const [showInfo, setShowInfo] = useState(false);
       form.reset(values); // Reset with the new saved values
     }, 1000);
   };
-  
+
   const handleCancel = () => { form.reset(defaultValues); setIsEditing(false); setGstVerificationStatus('idle'); setVerifiedGstData(null); setRegNoVerificationStatus('idle'); setEmailVerified(false); setShowEmailOtpInput(false); setEmailOtp(""); setEmailTimer(0); setMobileVerified(false); setShowMobileOtpInput(false); setMobileOtp(""); setMobileTimer(0); };
-  const onFormError = (errors: any) => { console.error("Form validation errors:", errors); toast.error("Please correct the highlighted errors before saving."); if(errors.addresses?.message) toast.error(errors.addresses.message); };
-  
+  const onFormError = (errors: any) => { console.error("Form validation errors:", errors); toast.error("Please correct the highlighted errors before saving."); if (errors.addresses?.message) toast.error(errors.addresses.message); };
+
   // (Warehouse and Phone Type handlers remain the same)
   const [newWarehouseLocation, setNewWarehouseLocation] = useState("");
   const addWarehouseLocation = () => { if (newWarehouseLocation.trim() === "") return; const currentLocations = form.getValues("warehouseLocations") || []; form.setValue("warehouseLocations", [...currentLocations, newWarehouseLocation.trim()]); setNewWarehouseLocation(""); };
@@ -259,7 +259,7 @@ const [showInfo, setShowInfo] = useState(false);
   const handleRemoveAddress = (index: number) => {
     const currentAddresses = form.getValues("addresses");
     const addressToRemove = currentAddresses[index];
-      if (addressToRemove.isPrimary) {
+    if (addressToRemove.isPrimary) {
       const isConfirmed = window.confirm(
         "This is your primary address. Are you sure you want to delete it?\nA new primary address will be assigned automatically."
       );
@@ -269,14 +269,14 @@ const [showInfo, setShowInfo] = useState(false);
         return;
       }
     }
-    
+
     // If we're removing the primary address and there's more than one address...
     if (addressToRemove.isPrimary && currentAddresses.length > 1) {
       // Find the next available address to make primary.
       const newPrimaryIndex = index === 0 ? 1 : 0;
       form.setValue(`addresses.${newPrimaryIndex}.isPrimary`, true);
     }
-    
+
     remove(index);
     form.trigger("addresses"); // Re-validate the addresses array
   };
@@ -287,223 +287,223 @@ const [showInfo, setShowInfo] = useState(false);
         shouldDirty: true,
         shouldTouch: true,
         // We prevent validation on each loop to avoid performance issues
-        shouldValidate: false, 
+        shouldValidate: false,
       });
     });
     // After all values are set, we trigger validation for the addresses array once.
     form.trigger("addresses");
   };
-  
+
   const handleCountryCodeSelectionChange = () => {
     form.setValue("mobile", "");
     form.clearErrors("mobile");
   };
 
-  const industryOptions = industries.map((industry) => ({
-  label: industry,
-  value: industry,
-}));
+  const industryOptions = industries.map((industry:any) => ({
+    label: industry,
+    value: industry,
+  }));
 
-const phoneTypes = [
-  { id: "mobile", label: "Mobile" },
-  { id: "telephone", label: "Landline" },
-  { id: "fax", label: "Fax" },
-];
-   return (
-    <Card className="border-0">
+  const phoneTypes = [
+    { id: "mobile", label: "Mobile" },
+    { id: "telephone", label: "Landline" },
+    { id: "fax", label: "Fax" },
+  ];
+  return (
+    <Card className="border-0 bg-white m-6">
       <div>
-    <CardHeader className="flex flex-row items-start justify-between">
-  {/* Left side - Title + Info (aligned to top) */}
-  <div className="flex flex-col">
-    <div className="flex items-center">
-      <CardTitle className="mr-2 mt-2">Company Information</CardTitle>
-      <button
-        type="button"
-        onClick={() => setShowInfo((prev) => !prev)}
-        className="text-muted-foreground hover:text-blue-600 transition"
-      >
-        <Info className="h-5 w-5 mt-2" />
-      </button>
-    </div>
-
-    {/* Fixed space for description (prevents layout shift) */}
-    <div className="min-h-[20px]"> {/* `min-h` ensures space even when empty */}
-      {showInfo && (
-        <CardDescription className="text-sm text-muted-foreground">
-          {isEditing ? "Update your company details." : "View your company details."}
-        </CardDescription>
-      )}
-    </div>
-  </div>
-
-  {/* Right side - Edit button (aligned to top) */}
-  {!isEditing && (
-    <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} className="mt-[10px]">
-      <Edit className="w-4 h-4 mr-2" /> Edit
-    </Button>
-  )}
-</CardHeader>
-  </div>
-   <div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit, onFormError)}>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <FormField control={form.control} name="companyName" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-foreground">Company Name</FormLabel>
-                    <div className="relative">
-                        {/* <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /> */}
-                        <FormControl>
-                            <Input placeholder="e.g Tech Solutions"  {...field} disabled={!isEditing} />
-                        </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-              )} />
-              <FormField control={form.control} name="yearEstablished" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-foreground">Year Established</FormLabel>
-                    <div className="relative">
-                        {/* <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /> */}
-                        <FormControl>
-                            <Input placeholder="e.g 2010" {...field} disabled={!isEditing} />
-                        </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-              )} />
+        <CardHeader className="flex flex-row items-start justify-between">
+          {/* Left side - Title + Info (aligned to top) */}
+          <div className="flex flex-col">
+            <div className="flex items-center">
+              <CardTitle className="mr-2 mt-2 text-primary-500">Company Information</CardTitle>
+              <button
+                type="button"
+                onClick={() => setShowInfo((prev) => !prev)}
+                className="text-muted-foreground hover:text-blue-900 transition"
+              >
+                <Info className="h-5 w-5 mt-2" />
+              </button>
             </div>
 
-<FormField
-  control={form.control}
-  name="industryFocus"
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className="text-foreground">Industry Type</FormLabel>
-      <FormControl>
-        {isEditing ? (
-          <Select value={field.value} onValueChange={field.onChange}>
-  <SelectTrigger className="w-full">
-    <SelectValue className="text-gray-200" placeholder="Select industries" />
-  </SelectTrigger>
-  <SelectContent
-    side="bottom"
-    className="w-full max-h-60 overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground shadow-md"
-    disablePortal
-  >
-    <div className="max-h-60 overflow-y-auto">
-      {industryOptions.map((industry) => (
-        <SelectItem
-          key={industry.value}
-          value={industry.value}
-          className="pr-3"
-        >
-          <div className="w-full text-left">{industry.label}</div>
-        </SelectItem>
-      ))}
-    </div>
-  </SelectContent>
-</Select>
-
-        ) : (
-          <div className="flex flex-wrap gap-2 min-h-[40px] w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm">
-            {field.value ? (
-              <div className="flex items-center bg-gray-100 text-gray-800 rounded-full px-3 py-1 text-sm">
-                {
-                  industryOptions.find(opt => opt.value === field.value)?.label || field.value
-                }
-              </div>
-            ) : (
-              <span className="text-muted-foreground">Select Industries</span>
-            )}
+            {/* Fixed space for description (prevents layout shift) */}
+            <div className="min-h-[20px]"> {/* `min-h` ensures space even when empty */}
+              {showInfo && (
+                <CardDescription className="text-sm text-muted-foreground">
+                  {isEditing ? "Update your company details." : "View your company details."}
+                </CardDescription>
+              )}
+            </div>
           </div>
-        )}
-      </FormControl>
-      <FormMessage />
-    </FormItem>
-  )}
-/>
 
+          {/* Right side - Edit button (aligned to top) */}
+          {!isEditing && (
+            <Button variant="outline" size="sm" onClick={() => setIsEditing(true)} className="mt-[10px] text-primary-500">
+              <Edit className="w-4 h-4 mr-2" /> Edit
+            </Button>
+          )}
+        </CardHeader>
+      </div>
+      <div>
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit, onFormError)}>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField control={form.control} name="companyName" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-primary-500 text-primary-500">Company Name</FormLabel>
+                    <div className="relative">
+                      {/* <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /> */}
+                      <FormControl>
+                        <Input placeholder="e.g Tech Solutions"  {...field} disabled={!isEditing} />
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="yearEstablished" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-primary-500">Year Established</FormLabel>
+                    <div className="relative">
+                      {/* <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" /> */}
+                      <FormControl>
+                        <Input placeholder="e.g 2010" {...field} disabled={!isEditing} />
+                      </FormControl>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+              </div>
 
-
-
-          <FormField 
-  control={form.control} 
-  name="companyDescription" 
-  render={({ field }) => (
-    <FormItem>
-      <FormLabel className="text-foreground">Company Description</FormLabel>
-      <FormControl>
-        <Textarea 
-          placeholder="e.g Describe your company, specialization, and value proposition" 
-          className="min-h-32" 
-          {...field} 
-          maxLength={1000} 
-          disabled={!isEditing} 
-        />
-      </FormControl>
-      <div className="flex justify-between items-center">
-  <div className="flex-1 min-w-0">
-    <FormMessage className="text-left truncate" />
-  </div>
-  <div className="flex-shrink-0 ml-2">
-    <FormDescription className="text-right">
-      {field.value?.length || 0} / 1000
-    </FormDescription>
-  </div>
-</div>
-    </FormItem>
-  )} 
-/>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <FormField
                 control={form.control}
-                name="gstNumber"
+                name="industryFocus"
                 render={({ field }) => (
-                 <FormItem>
-  <FormLabel className="flex items-center text-foreground">
-  GST Number
-  {gstVerificationStatus === "success" && verifiedGstData && ( // Only show if status is success and data exists
-    <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
-      <Check className="h-3 w-3" />
-      <span>Verified</span>
-    </Badge>
-  )}
-</FormLabel>
+                  <FormItem>
+                    <FormLabel className="text-primary-500">Industry Type</FormLabel>
+                    <FormControl>
+                      {isEditing ? (
+                        <Select value={field.value} onValueChange={field.onChange}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue className="text-gray-200" placeholder="Select industries" />
+                          </SelectTrigger>
+                          <SelectContent
+                            side="bottom"
+                            className="w-full max-h-60 overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground shadow-md"
+                            disablePortal
+                          >
+                            <div className="max-h-60 overflow-y-auto">
+                              {industryOptions.map((industry) => (
+                                <SelectItem
+                                  key={industry.value}
+                                  value={industry.value}
+                                  className="pr-3"
+                                >
+                                  <div className="w-full text-left">{industry.label}</div>
+                                </SelectItem>
+                              ))}
+                            </div>
+                          </SelectContent>
+                        </Select>
 
-  <div className="flex items-center space-x-2">
-    <FormControl>
-      <Input
-        placeholder="e.g 29AAAAA0000A1Z5"
-        {...field}
-        value={field.value ?? ""}
-        disabled={!isEditing}
-      />
-    </FormControl>
-    {isEditing && (
-      <Button
-        type="button"
-        onClick={handleVerifyGst}
-        disabled={isVerifyingGst || !field.value}
-        className="bg-[#1890ff] text-white hover:bg-blue-700"
-      >
-        {isVerifyingGst ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          "Verify"
-        )}
-      </Button>
-    )}
-  </div>
+                      ) : (
+                        <div className="flex flex-wrap gap-2 min-h-[40px] w-full rounded-md border border-input bg-background/50 px-3 py-2 text-sm">
+                          {field.value ? (
+                            <div className="flex items-center bg-gray-100 text-gray-800 rounded-full px-3 py-1 text-sm">
+                              {
+                                industryOptions.find(opt => opt.value === field.value)?.label || field.value
+                              }
+                            </div>
+                          ) : (
+                            <span className="text-muted-foreground">Select Industries</span>
+                          )}
+                        </div>
+                      )}
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-  {/* 🛠 Move this above the verification messages */}
-  <FormMessage className="text-sm text-red-600 mt-1" />
 
-  {/* Verification Messages */}
-  <div className="mt-1 text-sm min-h-[20px]">
-    {/* {gstVerificationStatus === "success" && verifiedGstData && (
+
+
+              <FormField
+                control={form.control}
+                name="companyDescription"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-primary-500">Company Description</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        placeholder="e.g Describe your company, specialization, and value proposition"
+                        className="min-h-32"
+                        {...field}
+                        maxLength={1000}
+                        disabled={!isEditing}
+                      />
+                    </FormControl>
+                    <div className="flex justify-between items-center">
+                      <div className="flex-1 min-w-0">
+                        <FormMessage className="text-left truncate" />
+                      </div>
+                      <div className="flex-shrink-0 ml-2">
+                        <FormDescription className="text-right">
+                          {field.value?.length || 0} / 1000
+                        </FormDescription>
+                      </div>
+                    </div>
+                  </FormItem>
+                )}
+              />
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <FormField
+                  control={form.control}
+                  name="gstNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center text-primary-500">
+                        GST Number
+                        {gstVerificationStatus === "success" && verifiedGstData && ( // Only show if status is success and data exists
+                          <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
+                            <Check className="h-3 w-3" />
+                            <span>Verified</span>
+                          </Badge>
+                        )}
+                      </FormLabel>
+
+                      <div className="flex items-center space-x-2">
+                        <FormControl>
+                          <Input
+                            placeholder="e.g 29AAAAA0000A1Z5"
+                            {...field}
+                            value={field.value ?? ""}
+                            disabled={!isEditing}
+                          />
+                        </FormControl>
+                        {isEditing && (
+                          <Button
+                            type="button"
+                            onClick={handleVerifyGst}
+                            disabled={isVerifyingGst || !field.value}
+                            className="bg-[#1890ff] text-white hover:bg-blue-700"
+                          >
+                            {isVerifyingGst ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              "Verify"
+                            )}
+                          </Button>
+                        )}
+                      </div>
+
+                      {/* 🛠 Move this above the verification messages */}
+                      <FormMessage className="text-sm text-red-600 mt-1" />
+
+                      {/* Verification Messages */}
+                      <div className="mt-1 text-sm min-h-[20px]">
+                        {/* {gstVerificationStatus === "success" && verifiedGstData && (
       <div className="flex items-center text-green-600">
         <CheckCircle2 className="h-4 w-4 mr-2" />
         <span>
@@ -511,385 +511,385 @@ const phoneTypes = [
         </span>
       </div>
     )} */}
-    {gstVerificationStatus === "not_found" && (
-      <div className="flex items-center text-yellow-600">
-        <AlertTriangle className="h-4 w-4 mr-2" />
-        <span>This GSTIN could not be found.</span>
-      </div>
-    )}
-    {gstVerificationStatus === "error" && (
-      <div className="flex items-center text-red-600">
-        <XCircle className="h-4 w-4 mr-2" />
-        <span>Verification failed. Please try again later.</span>
-      </div>
-    )}
-  </div>
-</FormItem>
+                        {gstVerificationStatus === "not_found" && (
+                          <div className="flex items-center text-yellow-600">
+                            <AlertTriangle className="h-4 w-4 mr-2" />
+                            <span>This GSTIN could not be found.</span>
+                          </div>
+                        )}
+                        {gstVerificationStatus === "error" && (
+                          <div className="flex items-center text-red-600">
+                            <XCircle className="h-4 w-4 mr-2" />
+                            <span>Verification failed. Please try again later.</span>
+                          </div>
+                        )}
+                      </div>
+                    </FormItem>
 
-                )}
-              />
-              
-              <FormField
-                control={form.control}
-                name="registrationNumber"
-                render={({ field }) => (
-                 <FormItem>
- <FormLabel className="flex items-center text-foreground">
-  Registeration Number
-  {regNoVerificationStatus === "success" && ( // Only show if status is success
-    <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
-      <Check className="h-3 w-3" />
-      <span>Verified</span>
-    </Badge>
-  )}
-</FormLabel>
-  <div className="flex items-center space-x-2">
-    <FormControl>
-      <Input
-        placeholder="e.g U74999DL2010PTC201234"
-        {...field}
-        disabled={!isEditing}
-      />
-    </FormControl>
-    {isEditing && (
-      <Button
-        type="button"
-        onClick={handleVerifyRegNo}
-        disabled={isVerifyingRegNo || !field.value}
-        className="bg-[#1890ff] text-white hover:bg-blue-700"
-      >
-        {isVerifyingRegNo ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          "Verify"
-        )}
-      </Button>
-    )}
-  </div>
+                  )}
+                />
 
-  {/* ✅ Move this here just below the input */}
-  <FormMessage className="text-sm text-red-600 mt-1" />
+                <FormField
+                  control={form.control}
+                  name="registrationNumber"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center text-primary-500">
+                        Registeration Number
+                        {regNoVerificationStatus === "success" && ( // Only show if status is success
+                          <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
+                            <Check className="h-3 w-3" />
+                            <span>Verified</span>
+                          </Badge>
+                        )}
+                      </FormLabel>
+                      <div className="flex items-center space-x-2">
+                        <FormControl>
+                          <Input
+                            placeholder="e.g U74999DL2010PTC201234"
+                            {...field}
+                            disabled={!isEditing}
+                          />
+                        </FormControl>
+                        {isEditing && (
+                          <Button
+                            type="button"
+                            onClick={handleVerifyRegNo}
+                            disabled={isVerifyingRegNo || !field.value}
+                            className="bg-[#1890ff] text-white hover:bg-blue-700"
+                          >
+                            {isVerifyingRegNo ? (
+                              <Loader2 className="h-4 w-4 animate-spin" />
+                            ) : (
+                              "Verify"
+                            )}
+                          </Button>
+                        )}
+                      </div>
 
-  {/* Verification Message */}
-  <div className="mt-1 text-sm min-h-[20px]">
-    {/* {regNoVerificationStatus === "success" && (
+                      {/* ✅ Move this here just below the input */}
+                      <FormMessage className="text-sm text-red-600 mt-1" />
+
+                      {/* Verification Message */}
+                      <div className="mt-1 text-sm min-h-[20px]">
+                        {/* {regNoVerificationStatus === "success" && (
       <div className="flex items-center text-green-600">
         <CheckCircle2 className="h-4 w-4 mr-2" />
         <span>Verified successfully.</span>
       </div>
     )} */}
-    {regNoVerificationStatus === "error" && (
-      <div className="flex items-center text-red-600">
-        <XCircle className="h-4 w-4 mr-2" />
-        <span>Verification failed. Please try again.</span>
-      </div>
-    )}
-  </div>
-</FormItem>
-
-                )}
-              />
-            </div>
-            
-            <FormField control={form.control} name="email" render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="flex items-center text-foreground">Email {emailVerified && <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
-      <Check className="h-3 w-3" />
-      <span>Verified</span>
-    </Badge>}</FormLabel>
-                   <div className="flex items-center space-x-2">
-                     <div className="relative flex-grow">
-                        
-                        <FormControl>
-                          <Input placeholder="e.g contact@innovatech.com"  {...field} disabled={!isEditing || showEmailOtpInput} />
-                        </FormControl>
+                        {regNoVerificationStatus === "error" && (
+                          <div className="flex items-center text-red-600">
+                            <XCircle className="h-4 w-4 mr-2" />
+                            <span>Verification failed. Please try again.</span>
+                          </div>
+                        )}
                       </div>
-                      {isEditing && !emailVerified && <Button className="bg-[#1890ff] text-white hover:bg-blue-700" type="button"  onClick={() => handleSendOtp('email')} disabled={isSendingEmailOtp || emailTimer > 0 || !!form.getFieldState('email').error}>  
-                          {isSendingEmailOtp ? <Loader2 className="h-4 w-4 animate-spin" /> : 
-                          emailTimer > 0 ? `Resend in ${emailTimer}s` :
+                    </FormItem>
+
+                  )}
+                />
+              </div>
+
+              <FormField control={form.control} name="email" render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="flex items-center text-primary-500">Email {emailVerified && <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
+                    <Check className="h-3 w-3" />
+                    <span>Verified</span>
+                  </Badge>}</FormLabel>
+                  <div className="flex items-center space-x-2">
+                    <div className="relative flex-grow">
+
+                      <FormControl>
+                        <Input placeholder="e.g contact@innovatech.com"  {...field} disabled={!isEditing || showEmailOtpInput} />
+                      </FormControl>
+                    </div>
+                    {isEditing && !emailVerified && <Button className="bg-[#1890ff] text-white hover:bg-blue-700" type="button" onClick={() => handleSendOtp('email')} disabled={isSendingEmailOtp || emailTimer > 0 || !!form.getFieldState('email').error}>
+                      {isSendingEmailOtp ? <Loader2 className="h-4 w-4 animate-spin" /> :
+                        emailTimer > 0 ? `Resend in ${emailTimer}s` :
                           showEmailOtpInput ? 'Resend OTP' : 'Verify'}
-                      </Button>}
-                   </div>
+                    </Button>}
+                  </div>
                   <FormMessage />
                   {showEmailOtpInput && (
                     <div className="mt-2 p-3 bg-gray-50 rounded-md border space-y-2">
                       <FormLabel>Enter 4-Digit OTP for Email</FormLabel>
                       <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
                         <OtpInput value={emailOtp} onChange={setEmailOtp} length={4} disabled={isVerifyingEmailOtp} />
-                        <Button  type="button" onClick={() => handleVerifyOtp('email')} disabled={isVerifyingEmailOtp || emailOtp.length !== 4}>
+                        <Button type="button" onClick={() => handleVerifyOtp('email')} disabled={isVerifyingEmailOtp || emailOtp.length !== 4}>
                           {isVerifyingEmailOtp ? <Loader2 className="h-4 w-4 animate-spin" /> : "Verify"}
                         </Button>
                       </div>
                     </div>
                   )}
                 </FormItem>
-            )} />
+              )} />
 
-          <div className="space-y-2">
-            <FormLabel className="text-foreground">Contact Numbers</FormLabel>
-           <div className="flex items-center space-x-4 pt-2">
-  {phoneTypes.map((phone) => (
-    <div key={phone.id} className="flex items-center space-x-2">
-      <Checkbox
-        id={phone.id}
-        checked={form.watch(phone.id as 'telephone' | 'mobile' | 'fax') !== undefined}
-        onCheckedChange={(checked) =>
-          handlePhoneTypeChange(phone.id as 'telephone' | 'mobile' | 'fax', !!checked)
-        }
-        onClick={phone.id === 'mobile' ? (e) => e.preventDefault() : undefined}
-        disabled={!isEditing}
-        className={phone.id === 'mobile' ? 'opacity-40 pointer-events-none' : ''}
-      />
-      <label
-        htmlFor={phone.id}
-        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-      >
-        {phone.label}
-      </label>
-    </div>
-  ))}
-</div>
-
-          
-              
-              {form.watch('mobile') !== undefined && (
-                <FormField control={form.control} name="mobile" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="flex items-center text-foreground space-x-4 pt-4">
-                    Mobile
-                    {mobileVerified && <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
-      <Check className="h-3 w-3" />
-      <span>Verified</span>
-    </Badge>}
-                  </FormLabel>
-                    <div className="flex items-center space-x-2">
-                   
-                          
-
-                {/* ISO Code Dropdown */}
-                <CountryCodeSelectField className="w-28"
-                  control={form.control}
-                  name="countryCode"
-                  onValueChange={handleCountryCodeSelectionChange}
-                  triggerPlaceholder="ISD"
-                  disabled={!isEditing}
-                />
-
-                {/* Mobile number input */}
-                <div className="relative flex-grow">
-                  <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <FormControl>
-                    <Input
-                      placeholder="e.g 9876543210"
-                      {...field}
-                      value={field.value ?? ""}
-                      disabled={!isEditing || showMobileOtpInput}
-                      className="pl-10"
-                    />
-                  </FormControl>
+              <div className="space-y-2">
+                <FormLabel className="text-primary-500">Contact Numbers</FormLabel>
+                <div className="flex items-center space-x-4 pt-2">
+                  {phoneTypes.map((phone) => (
+                    <div key={phone.id} className="flex items-center space-x-2">
+                      <Checkbox
+                        id={phone.id}
+                        checked={form.watch(phone.id as 'telephone' | 'mobile' | 'fax') !== undefined}
+                        onCheckedChange={(checked) =>
+                          handlePhoneTypeChange(phone.id as 'telephone' | 'mobile' | 'fax', !!checked)
+                        }
+                        onClick={phone.id === 'mobile' ? (e) => e.preventDefault() : undefined}
+                        disabled={!isEditing}
+                        className={phone.id === 'mobile' ? 'opacity-40 pointer-events-none' : ''}
+                      />
+                      <label
+                        htmlFor={phone.id}
+                        className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                      >
+                        {phone.label}
+                      </label>
+                    </div>
+                  ))}
                 </div>
 
-                      {isEditing && !mobileVerified && (
-                        <Button 
-                          type="button" 
-                          className="bg-[#1890ff] text-white hover:bg-blue-700" 
-                          onClick={() => handleSendOtp('mobile')} 
-                          disabled={isSendingMobileOtp || mobileTimer > 0 || !field.value || !!form.getFieldState('mobile').error}
-                        >
-                          {isSendingMobileOtp ? <Loader2 className="h-4 w-4 animate-spin" /> : 
-                           mobileTimer > 0 ? `Resend in ${mobileTimer}s` : 
-                           showMobileOtpInput ? 'Resend OTP' : 'Verify'}
-                        </Button>
-                      )}
-                    </div>
-                    <FormMessage />
-                    {showMobileOtpInput && (
-                      <div className="mt-2 p-3 bg-gray-50 rounded-md border space-y-2">
-                        <FormLabel>Enter 4-Digit OTP for Mobile</FormLabel>
-                         <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
-                           <OtpInput value={mobileOtp} onChange={setMobileOtp} length={4} disabled={isVerifyingMobileOtp} />
-                          <Button type="button"className="bg-blue-600 text-white hover:bg-blue-700 w-full sm:w-auto" onClick={() => handleVerifyOtp('mobile')} disabled={isVerifyingMobileOtp || mobileOtp.length !== 4}>
-                            {isVerifyingMobileOtp ? <Loader2 className="h-4 w-4 animate-spin" /> : "Verify"}
-                          </Button>
+
+
+                {form.watch('mobile') !== undefined && (
+                  <FormField control={form.control} name="mobile" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="flex items-center text-primary-500 space-x-4 pt-4">
+                        Mobile
+                        {mobileVerified && <Badge className="bg-green-100 text-green-600 hover:bg-green-200 flex items-center space-x-1 ml-2">
+                          <Check className="h-3 w-3" />
+                          <span>Verified</span>
+                        </Badge>}
+                      </FormLabel>
+                      <div className="flex items-center space-x-2">
+
+
+
+                        {/* ISO Code Dropdown */}
+                        <CountryCodeSelectField className="w-28"
+                          control={form.control}
+                          name="countryCode"
+                          onValueChange={handleCountryCodeSelectionChange}
+                          triggerPlaceholder="ISD"
+                          disabled={!isEditing}
+                        />
+
+                        {/* Mobile number input */}
+                        <div className="relative flex-grow">
+                          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                          <FormControl>
+                            <Input
+                              placeholder="e.g 9876543210"
+                              {...field}
+                              value={field.value ?? ""}
+                              disabled={!isEditing || showMobileOtpInput}
+                              className="pl-10"
+                            />
+                          </FormControl>
                         </div>
+
+                        {isEditing && !mobileVerified && (
+                          <Button
+                            type="button"
+                            className="bg-[#1890ff] text-white hover:bg-blue-700"
+                            onClick={() => handleSendOtp('mobile')}
+                            disabled={isSendingMobileOtp || mobileTimer > 0 || !field.value || !!form.getFieldState('mobile').error}
+                          >
+                            {isSendingMobileOtp ? <Loader2 className="h-4 w-4 animate-spin" /> :
+                              mobileTimer > 0 ? `Resend in ${mobileTimer}s` :
+                                showMobileOtpInput ? 'Resend OTP' : 'Verify'}
+                          </Button>
+                        )}
                       </div>
-                    )}
-                  </FormItem>
-                )} />
-              )}
-              {form.watch('telephone') !== undefined && (
-                <FormField control={form.control} name="telephone" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-foreground">Landline (Optional)</FormLabel>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <FormControl>
-                        <Input placeholder="e.g 01145678901" {...field} value={typeof field.value === "string" ? field.value : ""} disabled={!isEditing} className="pl-10" />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              )}
-              {form.watch('fax') !== undefined && (
-                <FormField control={form.control} name="fax" render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className="text-foreground">Fax (Optional)</FormLabel>
-                    <div className="relative">
-                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <FormControl>
-                        <Input placeholder="e.g 5551234567" {...field} value={field.value ?? ""} disabled={!isEditing} className="pl-10" />
-                      </FormControl>
-                    </div>
-                    <FormMessage />
-                  </FormItem>
-                )} />
-              )}
-            </div>
-
-          <div className="space-y-4">
-  <FormLabel className="text-base font-semibold text-foreground">Company Addresses</FormLabel>
-  {fields.map((field, index) => {
-    const selectedState = form.watch(`addresses.${index}.state`);
-    const citiesForThisAddress = selectedState ? (indianStatesAndCities[selectedState] || []).map(city => ({ label: city, value: city })) : [];
-    return (
-      <div key={field.id} className="space-y-4 rounded-md border p-4 relative bg-slate-50/50">
-        {/* --- MODIFIED HEADER SECTION --- */}
-        <div className="flex justify-between items-center mb-2">
-          {/* Group for left-aligned content: Title and Primary Status */}
-          <div className="flex items-center gap-x-4">
-            <h4 className="text-base font-semibold text-foreground">
-              {index === 0
-                ? "Registered Address"
-                : index === 1
-                ? "Plant Address"
-                : `Address ${index + 1}`}
-            </h4>
-
-            
-            {/* MOVED: Primary status badge for view mode */}
-            {!isEditing && form.getValues(`addresses.${index}.isPrimary`) && (
-              <div className="flex items-center text-sm font-semibold text-green-700 bg-green-100/60 rounded-full px-3 py-1">
-                <Check className="h-4 w-4 mr-2" /> Primary Address
+                      <FormMessage />
+                      {showMobileOtpInput && (
+                        <div className="mt-2 p-3 bg-gray-50 rounded-md border space-y-2">
+                          <FormLabel>Enter 4-Digit OTP for Mobile</FormLabel>
+                          <div className="flex flex-col sm:flex-row items-start sm:items-center sm:space-x-2 space-y-2 sm:space-y-0">
+                            <OtpInput value={mobileOtp} onChange={setMobileOtp} length={4} disabled={isVerifyingMobileOtp} />
+                            <Button type="button" className="bg-blue-600 text-white hover:bg-blue-700 w-full sm:w-auto" onClick={() => handleVerifyOtp('mobile')} disabled={isVerifyingMobileOtp || mobileOtp.length !== 4}>
+                              {isVerifyingMobileOtp ? <Loader2 className="h-4 w-4 animate-spin" /> : "Verify"}
+                            </Button>
+                          </div>
+                        </div>
+                      )}
+                    </FormItem>
+                  )} />
+                )}
+                {form.watch('telephone') !== undefined && (
+                  <FormField control={form.control} name="telephone" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary-500">Landline (Optional)</FormLabel>
+                      <div className="relative">
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <FormControl>
+                          <Input placeholder="e.g 01145678901" {...field} value={typeof field.value === "string" ? field.value : ""} disabled={!isEditing} className="pl-10" />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                )}
+                {form.watch('fax') !== undefined && (
+                  <FormField control={form.control} name="fax" render={({ field }) => (
+                    <FormItem>
+                      <FormLabel className="text-primary-500">Fax (Optional)</FormLabel>
+                      <div className="relative">
+                        <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                        <FormControl>
+                          <Input placeholder="e.g 5551234567" {...field} value={field.value ?? ""} disabled={!isEditing} className="pl-10" />
+                        </FormControl>
+                      </div>
+                      <FormMessage />
+                    </FormItem>
+                  )} />
+                )}
               </div>
-            )}
-            
-            {/* MOVED & RESTYLED: Primary status checkbox for edit mode */}
-            {isEditing && (
-              <FormField control={form.control} name={`addresses.${index}.isPrimary`} render={({ field }) => (
-                <FormItem className="flex flex-row items-center space-x-2 space-y-0">
-                  <FormControl>
-                    <Checkbox checked={field.value} onCheckedChange={() => handleSetPrimary(index)} />
-                  </FormControl>
-                  <div className="space-y-1 leading-none">
-                    <FormLabel className="font-normal cursor-pointer text-sm">
-                      Set as Primary Address
+
+              <div className="space-y-4">
+                <FormLabel className="text-base font-semibold text-primary-500">Company Addresses</FormLabel>
+                {fields.map((field, index) => {
+                  const selectedState = form.watch(`addresses.${index}.state`);
+                  const citiesForThisAddress = selectedState ? (indianStatesAndCities[selectedState] || []).map(city => ({ label: city, value: city })) : [];
+                  return (
+                    <div key={field.id} className="space-y-4 rounded-md border p-4 relative bg-slate-50/50">
+                      {/* --- MODIFIED HEADER SECTION --- */}
+                      <div className="flex justify-between items-center mb-2">
+                        {/* Group for left-aligned content: Title and Primary Status */}
+                        <div className="flex items-center gap-x-4">
+                          <h4 className="text-base font-semibold text-primary-500">
+                            {index === 0
+                              ? "Registered Address"
+                              : index === 1
+                                ? "Plant Address"
+                                : `Address ${index + 1}`}
+                          </h4>
+
+
+                          {/* MOVED: Primary status badge for view mode */}
+                          {!isEditing && form.getValues(`addresses.${index}.isPrimary`) && (
+                            <div className="flex items-center text-sm font-semibold text-green-700 bg-green-100/60 rounded-full px-3 py-1">
+                              <Check className="h-4 w-4 mr-2" /> Primary Address
+                            </div>
+                          )}
+
+                          {/* MOVED & RESTYLED: Primary status checkbox for edit mode */}
+                          {isEditing && (
+                            <FormField control={form.control} name={`addresses.${index}.isPrimary`} render={({ field }) => (
+                              <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+                                <FormControl>
+                                  <Checkbox checked={field.value} onCheckedChange={() => handleSetPrimary(index)} />
+                                </FormControl>
+                                <div className="space-y-1 leading-none">
+                                  <FormLabel className="font-normal cursor-pointer text-sm">
+                                    Set as Primary Address
+                                  </FormLabel>
+                                </div>
+                              </FormItem>
+                            )} />
+                          )}
+                        </div>
+
+                        {/* Remove button remains on the right */}
+                        {isEditing && (<Button type="button" variant="ghost" size="icon" className="h-8 w-8 text-red-500 hover:bg-red-100 hover:text-red-600" onClick={() => handleRemoveAddress(index)} disabled={fields.length <= 1} aria-label="Remove Address"><Trash2 className="h-4 w-4" /></Button>)}
+                      </div>
+
+                      {/* Address Line */}
+                      <FormField control={form.control} name={`addresses.${index}.line1`} render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-primary-500">Address Line</FormLabel>
+                          <FormControl>
+                            <div className="relative">
+                              <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                              <Input placeholder="e.g Plot 123, Industrial Area" {...field} disabled={!isEditing} className="pl-10" />
+                            </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )} />
+
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <FormField control={form.control} name={`addresses.${index}.state`} render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-primary-500">State</FormLabel>
+                            <Select onValueChange={(value) => { field.onChange(value); form.setValue(`addresses.${index}.city`, ""); }} value={field.value} disabled={!isEditing}>
+                              <FormControl><SelectTrigger><SelectValue placeholder="Select a state" /></SelectTrigger></FormControl>
+                              <SelectContent>{indianStates.map((state) => (<SelectItem key={state.value} value={state.value}>{state.label}</SelectItem>))}</SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )} />
+                        <FormField control={form.control} name={`addresses.${index}.city`} render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-primary-500">City</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value} disabled={!isEditing || !selectedState}>
+                              <FormControl><SelectTrigger><SelectValue placeholder="Select a city" /></SelectTrigger></FormControl>
+                              <SelectContent>{citiesForThisAddress.map((city) => (<SelectItem key={city.value} value={city.value}>{city.label}</SelectItem>))}</SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )} />
+                        <FormField control={form.control} name={`addresses.${index}.pincode`} render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-primary-500">PIN Code</FormLabel>
+                            <FormControl><Input placeholder="e.g., 400001" {...field} disabled={!isEditing} /></FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )} />
+                      </div>
+
+                      {/* --- DELETED --- The primary address elements that were previously here have been moved to the header */}
+
+                    </div>
+                  )
+                })}
+                {isEditing && (
+                  <Button type="button" variant="outline" className="w-full" onClick={handleAddAddress}>
+                    <PlusCircle className="mr-2 h-4 w-4" />
+                    Add Another Address
+                  </Button>
+                )}
+                <FormMessage>{form.formState.errors.addresses?.message}</FormMessage>
+              </div>
+
+              <FormField
+                control={form.control}
+                name="website"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-primary-500">
+
+                      Website
                     </FormLabel>
-                  </div>
-                </FormItem>
-              )} />
+                    <FormControl>
+                      <Input
+                        type="url"
+                        placeholder="e.g https://www.tataindustries.com"
+                        {...field}
+                        value={field.value ?? ""}
+                        onChange={field.onChange}
+                        disabled={!isEditing}
+                        className="w-full"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+            </CardContent>
+
+            {isEditing && (
+              <CardFooter className="flex justify-end gap-2 border-t bg-gray-50/50 px-6 py-4">
+                <Button type="submit" disabled={isSubmitting} className="bg-[#1890ff] hover:bg-blue-700">
+                  {isSubmitting ? (<span className="flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</span>) : ("Save")}
+                </Button>
+                <Button variant="outline" type="button" disabled={isSubmitting} onClick={handleCancel}>Cancel</Button>
+              </CardFooter>
             )}
-          </div>
-          
-          {/* Remove button remains on the right */}
-          {isEditing && (<Button type="button" variant="ghost" size="icon" className="h-8 w-8 text-red-500 hover:bg-red-100 hover:text-red-600" onClick={() => handleRemoveAddress(index)} disabled={fields.length <= 1} aria-label="Remove Address"><Trash2 className="h-4 w-4" /></Button>)}
-        </div>
-        
-        {/* Address Line */}
-        <FormField control={form.control} name={`addresses.${index}.line1`} render={({ field }) => (
-          <FormItem>
-            <FormLabel className="text-foreground">Address Line</FormLabel>
-            <FormControl>
-              <div className="relative">
-                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                <Input placeholder="e.g Plot 123, Industrial Area" {...field} disabled={!isEditing} className="pl-10" />
-              </div>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )} />
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <FormField control={form.control} name={`addresses.${index}.state`} render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-foreground">State</FormLabel>
-              <Select onValueChange={(value) => { field.onChange(value); form.setValue(`addresses.${index}.city`, ""); }} value={field.value} disabled={!isEditing}>
-                <FormControl><SelectTrigger><SelectValue placeholder="Select a state" /></SelectTrigger></FormControl>
-                <SelectContent>{indianStates.map((state) => (<SelectItem key={state.value} value={state.value}>{state.label}</SelectItem>))}</SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name={`addresses.${index}.city`} render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-foreground">City</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value} disabled={!isEditing || !selectedState}>
-                <FormControl><SelectTrigger><SelectValue placeholder="Select a city" /></SelectTrigger></FormControl>
-                <SelectContent>{citiesForThisAddress.map((city) => (<SelectItem key={city.value} value={city.value}>{city.label}</SelectItem>))}</SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          )} />
-          <FormField control={form.control} name={`addresses.${index}.pincode`} render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-foreground">PIN Code</FormLabel>
-              <FormControl><Input placeholder="e.g., 400001" {...field} disabled={!isEditing} /></FormControl>
-              <FormMessage />
-            </FormItem>
-          )} />
-        </div>
-
-        {/* --- DELETED --- The primary address elements that were previously here have been moved to the header */}
-
-      </div>
-    )
-  })}
-  {isEditing && (
-    <Button type="button" variant="outline" className="w-full" onClick={handleAddAddress}>
-      <PlusCircle className="mr-2 h-4 w-4" />
-      Add Another Address
-    </Button>
-  )}
-  <FormMessage>{form.formState.errors.addresses?.message}</FormMessage>
-</div>
-
-          <FormField
-          control={form.control}
-          name="website"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-foreground">
-             
-                Website
-              </FormLabel>
-              <FormControl>
-                <Input
-                  type="url"
-                  placeholder="e.g https://www.tataindustries.com"
-                  {...field}
-                  value={field.value ?? ""}
-                  onChange={field.onChange}
-                  disabled={!isEditing}
-                  className="w-full"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-          </CardContent>
-          
-          {isEditing && (
-            <CardFooter className="flex justify-end gap-2 border-t bg-gray-50/50 px-6 py-4">
-              <Button type="submit" disabled={isSubmitting} className="bg-[#1890ff] hover:bg-blue-700">
-                {isSubmitting ? ( <span className="flex items-center"><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving...</span> ) : ( "Save" )}
-              </Button>
-              <Button variant="outline" type="button" disabled={isSubmitting} onClick={handleCancel}>Cancel</Button>
-            </CardFooter>
-          )}
-        </form>
-      </Form>
+          </form>
+        </Form>
       </div>
     </Card>
   );
