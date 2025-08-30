@@ -1,5 +1,4 @@
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -25,11 +24,23 @@ interface QuoteReviewTableProps {
   aiEvaluations?: Map<string, AIEvaluation>;
 }
 
+export let isTopPickAvailable = true;
+
 export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({ 
   quotes, 
   onAcceptQuote, 
   aiEvaluations = new Map() 
 }) => {
+  const [topPickAvailable, setTopPickAvailable] = useState(isTopPickAvailable);
+
+  const handleAcceptQuote = (quoteId: string, isTopPick: boolean) => {
+    if (isTopPick) {
+      setTopPickAvailable(false);
+      isTopPickAvailable = false;
+    }
+    onAcceptQuote(quoteId);
+  };
+
   const getRecommendationBadge = (recommendation: AIEvaluation['recommendation']) => {
     switch (recommendation) {
       case 'top_pick':
@@ -77,7 +88,7 @@ export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({
           <TableBody>
             {quotes.map((quote) => {
               const aiEvaluation = aiEvaluations.get(quote.id);
-              const isTopPick = aiEvaluation?.recommendation === 'top_pick';
+              const isTopPick = aiEvaluation?.recommendation === 'top_pick' && topPickAvailable;
               
               return (
                 <TableRow 
@@ -151,7 +162,7 @@ export const QuoteReviewTable: React.FC<QuoteReviewTableProps> = ({
                   </TableCell>
                   <TableCell>
                     <Button 
-                      onClick={() => onAcceptQuote(quote.id)}
+                      onClick={() => handleAcceptQuote(quote.id, isTopPick)}
                       className={`font-medium ${
                         isTopPick 
                           ? 'bg-yellow-600 hover:bg-yellow-700 text-white' 
