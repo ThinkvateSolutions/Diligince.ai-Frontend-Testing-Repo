@@ -7,11 +7,11 @@ export interface FilterOption {
 export interface ColumnConfig {
   name: string;
   label: string;
-  action?: (row: any) => void;
-  isSearchable?: boolean;
   isSortable?: boolean;
+  isSearchable?: boolean;
   isFilterable?: boolean;
   filterOptions?: FilterOption[];
+  action?: (row: any) => void;
   render?: (value: any, row: any) => React.ReactNode;
   width?: string;
   align?: 'left' | 'center' | 'right';
@@ -23,7 +23,15 @@ export interface SortConfig {
 }
 
 export interface FilterConfig {
-  [key: string]: string[];
+  [columnName: string]: string[];
+}
+
+export interface PaginationConfig {
+  enabled: boolean;
+  pageSize: number;
+  currentPage: number;
+  onPageChange?: (page: number) => void;
+  onPageSizeChange?: (size: number) => void;
 }
 
 export interface TableProps {
@@ -38,14 +46,7 @@ export interface TableProps {
   };
   onAdd?: () => void;
   loading?: boolean;
-  pagination?: {
-    enabled: boolean;
-    pageSize?: number;
-    currentPage?: number;
-    totalItems?: number;
-    onPageChange?: (page: number) => void;
-    onPageSizeChange?: (size: number) => void;
-  };
+  pagination?: PaginationConfig;
   selectable?: boolean;
   onSelectionChange?: (selectedRows: any[]) => void;
   globalSearchPlaceholder?: string;

@@ -32,8 +32,6 @@ export interface UserPreferences {
 }
 
 export interface UserProfile {
-  _id: any;
-  phone: any;
   id: string;
   name: string;
   email: string;

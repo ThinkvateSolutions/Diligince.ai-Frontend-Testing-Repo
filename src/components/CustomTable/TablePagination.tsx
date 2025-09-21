@@ -54,7 +54,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
           <select
             value={pageSize}
             onChange={(e) => onPageSizeChange(Number(e.target.value))}
-            className="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-[#1a365d] focus:border-transparent outline-none"
+            className="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
           >
             <option value={10}>10</option>
             <option value={25}>25</option>
@@ -78,7 +78,7 @@ const TablePagination: React.FC<TablePaginationProps> = ({
               onClick={() => onPageChange(page)}
               className={`px-3 py-1 rounded text-sm transition-colors duration-200 ${
                 page === currentPage
-                  ? 'bg-[#1a365d] text-white'
+                  ? 'bg-primary text-white'
                   : 'text-gray-700 hover:bg-gray-100'
               }`}
             >

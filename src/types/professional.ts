@@ -25,7 +25,6 @@ export type ProfessionalStatus = 'active' | 'inactive' | 'busy' | 'available';
 export type ProfessionalAvailability = 'available' | 'busy' | 'unavailable';
 
 export interface Certification {
-  documentName: any;
   id: string;
   name: string;
   issuer: string;

@@ -1,8 +1,8 @@
+
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { CheckCircle, Clock, Mail, Eye } from 'lucide-react';
-import { isTopPickAvailable } from './QuoteReviewTable';
 
 interface RFQStatus {
   stakeholderName: string;
@@ -24,11 +24,6 @@ export const QuoteStatusTracker: React.FC<QuoteStatusTrackerProps> = ({
   totalRFQsSent,
   quotesReceived
 }) => {
-  // Return null if top pick is not available (component will be hidden)
-  if (!isTopPickAvailable) {
-    return null;
-  }
-
   const getStatusIcon = (status: RFQStatus['quoteStatus']) => {
     switch (status) {
       case 'received':
@@ -50,7 +45,6 @@ export const QuoteStatusTracker: React.FC<QuoteStatusTrackerProps> = ({
         return <Badge className="bg-blue-100 text-blue-800">RFQ Sent</Badge>;
     }
   };
-  
 
   return (
     <Card className="bg-white shadow-sm border border-gray-200">
