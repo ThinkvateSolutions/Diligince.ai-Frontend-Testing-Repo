@@ -73,14 +73,14 @@ const TableFilters: React.FC<TableFiltersProps> = ({
             onClick={() => setOpenDropdown(openDropdown === column.name ? null : column.name)}
             className={`flex items-center space-x-2 px-3 py-2 border rounded-lg text-sm transition-colors duration-200 ${
               getActiveFilterCount(column.name) > 0
-                ? 'bg-[#1a365d] text-white border-[#1a365d]'
+                ? 'bg-primary text-white border-primary'
                 : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50'
             }`}
           >
             <Filter className="w-4 h-4" />
             <span>{column.label}</span>
             {getActiveFilterCount(column.name) > 0 && (
-              <span className="bg-white text-[#1a365d] px-1.5 py-0.5 rounded text-xs font-medium">
+              <span className="bg-white text-primary px-1.5 py-0.5 rounded text-xs font-medium">
                 {getActiveFilterCount(column.name)}
               </span>
             )}
@@ -110,7 +110,7 @@ const TableFilters: React.FC<TableFiltersProps> = ({
                       type="checkbox"
                       checked={filters[column.name]?.includes(option.key) || false}
                       onChange={(e) => handleFilterChange(column.name, option.key, e.target.checked)}
-                      className="rounded border-gray-300 text-[#1a365d] focus:ring-[#1a365d]"
+                      className="rounded border-gray-300 text-primary focus:ring-primary"
                     />
                     <span className="text-sm text-gray-700">{option.value}</span>
                     {option.color && (

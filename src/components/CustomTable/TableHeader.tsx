@@ -87,7 +87,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
               value={globalSearch}
               onChange={(e) => onGlobalSearchChange(e.target.value)}
               onKeyPress={handleKeyPress}
-              className="pl-4 pr-4 py-2 h-10 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-[#1a365d] focus:border-transparent outline-none transition-all duration-200 w-80"
+              className="pl-4 pr-4 py-2 h-10 border border-gray-300 rounded-l-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-200 w-80"
             />
 
             {/* Column Dropdown */}
@@ -107,7 +107,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                   <div className="p-3 border-b border-gray-200">
                     <button
                       onClick={handleSelectAll}
-                      className="text-sm text-[#1a365d] hover:text-[#2d4a6b] font-medium"
+                      className="text-sm text-primary hover:text-primary-dark font-medium"
                     >
                       {selectedColumns.length === searchableColumns.length ? 'Deselect All' : 'Select All'}
                     </button>
@@ -122,7 +122,7 @@ const TableHeader: React.FC<TableHeaderProps> = ({
                           type="checkbox"
                           checked={selectedColumns.includes(column.name)}
                           onChange={() => handleColumnToggle(column.name)}
-                          className="rounded border-gray-300 text-[#1a365d] focus:ring-[#1a365d]"
+                          className="rounded border-gray-300 text-primary focus:ring-primary"
                         />
                         <span className="text-sm text-gray-700">{column.label}</span>
                       </label>
@@ -135,18 +135,16 @@ const TableHeader: React.FC<TableHeaderProps> = ({
             {/* Search Button */}
             <button
               onClick={handleSearch}
-              className="h-10 px-4 bg-primary-500 text-white rounded-r-lg hover:bg-[#2d4a6b] transition-colors duration-200 flex items-center space-x-1 border border-gray-300 border-l-0"
+              className="h-10 px-4 bg-primary text-white rounded-r-lg hover:bg-primary-dark transition-colors duration-200 flex items-center space-x-1 border border-gray-300 border-l-0"
             >
               <Search className="w-4 h-4" />
               <span>Search</span>
             </button>
           </div>
         </div>
-
-
       </div>
+      
       <div className='flex items-center space-x-3'>
-
         {(onExport?.xlsx || onExport?.csv) && (
           <div className="relative" ref={exportDropdownRef}>
             <button
@@ -192,9 +190,9 @@ const TableHeader: React.FC<TableHeaderProps> = ({
         {onAdd && (
           <button
             onClick={onAdd}
-            className="flex items-center space-x-2 px-4 py-2 bg-[#1a365d] text-white rounded-lg hover:bg-[#2d4a6b] transition-colors duration-200"
+            className="flex items-center space-x-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-200"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-4 w-4" />
             <span>Create</span>
           </button>
         )}

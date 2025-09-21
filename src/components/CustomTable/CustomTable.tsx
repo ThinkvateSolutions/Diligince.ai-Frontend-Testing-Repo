@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { ArrowUpDown, ArrowUp, ArrowDown, Search } from 'lucide-react';
+import { ArrowUpDown, ArrowUp, ArrowDown } from 'lucide-react';
 import { ColumnConfig, SortConfig, FilterConfig, TableProps } from '../../types/table';
 import TableHeader from './TableHeader';
 import TableFilters from './TableFilters';
@@ -161,7 +161,7 @@ const CustomTable: React.FC<TableProps> = ({
       return (
         <button
           onClick={() => column.action?.(row)}
-          className="text-[#1a365d] hover:underline font-medium"
+          className="text-primary hover:underline font-medium"
         >
           #{value}
         </button>
@@ -183,7 +183,7 @@ const CustomTable: React.FC<TableProps> = ({
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#1a365d]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
       </div>
     );
   }
@@ -218,7 +218,7 @@ const CustomTable: React.FC<TableProps> = ({
                       type="checkbox"
                       checked={paginatedData.length > 0 && selectedRows.length === paginatedData.length}
                       onChange={(e) => handleSelectAll(e.target.checked)}
-                      className="rounded border-gray-300 text-[#1a365d] focus:ring-[#1a365d]"
+                      className="rounded border-gray-300 text-primary focus:ring-primary"
                     />
                   </th>
                 )}
@@ -233,7 +233,7 @@ const CustomTable: React.FC<TableProps> = ({
                         {column.isSortable ? (
                           <div
                             onClick={() => handleSort(column.name)}
-                            className="flex items-center space-x-1 hover:text-gray-700 transition-colors duration-200 w-full"
+                            className="flex items-center space-x-1 hover:text-gray-700 transition-colors duration-200 w-full cursor-pointer"
                           >
                             <span className='whitespace-normal'>{column.label}</span>
                             {getSortIcon(column.name)}
@@ -271,7 +271,7 @@ const CustomTable: React.FC<TableProps> = ({
                           type="checkbox"
                           checked={selectedRows.includes(row)}
                           onChange={(e) => handleRowSelection(row, e.target.checked)}
-                          className="rounded border-gray-300 text-[#1a365d] focus:ring-[#1a365d]"
+                          className="rounded border-gray-300 text-primary focus:ring-primary"
                           onClick={(e) => e.stopPropagation()}
                         />
                       </td>

@@ -1,3 +1,4 @@
+
 import React, { useState, useCallback } from 'react';
 import { BaseModal } from '@/components/shared/modals/BaseModal';
 import { Button } from '@/components/ui/button';
@@ -25,15 +26,12 @@ export const ManualPOUploadModal: React.FC<ManualPOUploadModalProps> = ({
   const [poNumber, setPONumber] = useState(`PO-${Date.now()}`);
   const [uploadError, setUploadError] = useState<string | null>(null);
 
-  const allowedTypes = ['application/pdf', 'image/png', 'image/jpeg'];
-  const maxSize = 5 * 1024 * 1024; // 5MB
-
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (e.type === 'dragenter' || e.type === 'dragover') {
+    if (e.type === "dragenter" || e.type === "dragover") {
       setDragActive(true);
-    } else if (e.type === 'dragleave') {
+    } else if (e.type === "dragleave") {
       setDragActive(false);
     }
   }, []);
@@ -42,7 +40,7 @@ export const ManualPOUploadModal: React.FC<ManualPOUploadModalProps> = ({
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-
+    
     const files = e.dataTransfer.files;
     if (files && files[0]) {
       handleFileSelect(files[0]);
@@ -50,13 +48,16 @@ export const ManualPOUploadModal: React.FC<ManualPOUploadModalProps> = ({
   }, []);
 
   const handleFileSelect = (file: File) => {
+    const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    const maxSize = 10 * 1024 * 1024; // 10MB
+
     if (!allowedTypes.includes(file.type)) {
-      setUploadError('Please upload a PDF, PNG, or JPG file.');
+      setUploadError('Please upload a PDF, DOC, or DOCX file.');
       return;
     }
 
     if (file.size > maxSize) {
-      setUploadError('File size must be less than 5MB.');
+      setUploadError('File size must be less than 10MB.');
       return;
     }
 
@@ -129,11 +130,11 @@ export const ManualPOUploadModal: React.FC<ManualPOUploadModalProps> = ({
           <Label className="text-sm font-medium text-gray-700 mb-2 block">
             Upload Purchase Order Document *
           </Label>
-
+          
           <div
             className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-              dragActive
-                ? 'border-blue-400 bg-blue-50'
+              dragActive 
+                ? 'border-blue-400 bg-blue-50' 
                 : 'border-gray-300 hover:border-gray-400'
             }`}
             onDragEnter={handleDrag}
@@ -150,7 +151,7 @@ export const ManualPOUploadModal: React.FC<ManualPOUploadModalProps> = ({
             </p>
             <Input
               type="file"
-              accept=".pdf,.png,.jpg,.jpeg"
+              accept=".pdf,.doc,.docx"
               onChange={handleFileInputChange}
               className="hidden"
               id="file-upload"
@@ -162,7 +163,7 @@ export const ManualPOUploadModal: React.FC<ManualPOUploadModalProps> = ({
               Browse Files
             </Label>
             <p className="text-xs text-gray-500 mt-2">
-              Supported formats: PDF, PNG, JPG (Max 5MB)
+              Supported formats: PDF, DOC, DOCX (Max 10MB)
             </p>
           </div>
         </div>
