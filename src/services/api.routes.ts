@@ -10,7 +10,7 @@ export function generateQueryParams(queryParams: any) {
     const queryString = params.toString();
     return queryString
 }
-const basePath = '/api/v1'
+const basePath = ''
 
 // src/constants/apiRoutes.ts
 export const apiRoutes = {

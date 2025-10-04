@@ -14,57 +14,33 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { WelcomeModal } from "@/components/shared/WelcomeModal";
 import { useAuth } from "../hooks/useAuth";
 
-// Keep the same industries array
 export const industries = [
-  "Sugar Manufacturing",
-  "Rice Mills",
-  "Coal Mining",
-  "Steel Manufacturing",
-  "Cement Production",
-  "Oil Refining",
-  "Natural Gas Processing",
-  "Textile Manufacturing",
-  "Paper Mills",
-  "Chemical Manufacturing",
-  "Pharmaceutical Production",
-  "Food Processing",
-  "Automotive Manufacturing",
-  "Electronics Manufacturing",
-  "Plastics Manufacturing",
-  "Glass Production",
-  "Plumber and Wood Products",
-  "Fertilizer Production",
-  "Power Generation",
-  "Water Treatment",
-  "Manufacturing",
-  "Others"
+  "Sugar Manufacturing", "Rice Mills", "Coal Mining", "Steel Manufacturing", "Cement Production",
+  "Oil Refining", "Natural Gas Processing", "Textile Manufacturing", "Paper Mills", "Chemical Manufacturing",
+  "Pharmaceutical Production", "Food Processing", "Automotive Manufacturing", "Electronics Manufacturing",
+  "Plastics Manufacturing", "Glass Production", "Plumber and Wood Products", "Fertilizer Production",
+  "Power Generation", "Water Treatment", "Manufacturing", "Others"
 ];
 
 const formSchema = z.object({
-  companyName: z.string().min(1, {
-    message: "Company name is required",
-  }),
-  email: z.string().email({
-    message: "Please enter a valid email address",
-  }),
-  phone: z.string().min(10, {
-    message: "Phone number must be at least 10 digits",
-  }),
-  industryType: z.string().min(1, {
-    message: "Industry type is required",
-  }),
+  firstName: z.string().min(1, { message: "First name is required" }),
+  lastName: z.string().min(1, { message: "Last name is required" }),
+  companyName: z.string().min(1, { message: "Company name is required" }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  phone: z.string().min(10, { message: "Phone number must be at least 10 digits" }),
+  industryType: z.string().min(1, { message: "Industry type is required" }),
   customIndustryType: z.string().optional(),
-  password: z.string().min(8, {
-    message: "Password must be at least 8 characters",
-  }),
+  password: z.string().min(8, { message: "Password must be at least 8 characters" }),
   confirmPassword: z.string(),
-  acceptTerms: z.boolean().refine((value) => value === true, {
+  termsAccepted: z.boolean().refine((value) => value === true, {
     message: "You must accept the terms and conditions",
+  }),
+  privacyAccepted: z.boolean().refine((value) => value === true, {
+    message: "You must accept the privacy policy",
   }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
@@ -80,14 +56,14 @@ const formSchema = z.object({
 export function IndustrySignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [showWelcomeModal, setShowWelcomeModal] = useState(false);
-  const [newUser, setNewUser] = useState<any>(null);
   const navigate = useNavigate();
   const { signUp, isLoading } = useAuth();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      firstName: "",
+      lastName: "",
       companyName: "",
       email: "",
       phone: "",
@@ -95,7 +71,8 @@ export function IndustrySignUpForm() {
       customIndustryType: "",
       password: "",
       confirmPassword: "",
-      acceptTerms: false,
+      termsAccepted: false,
+      privacyAccepted: false,
     },
   });
 
@@ -103,70 +80,53 @@ export function IndustrySignUpForm() {
   const showCustomIndustryField = selectedIndustryType === "Others";
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    // Generate initials from company name
-    const initials = values.companyName
-      .split(' ')
-      .map(word => word.charAt(0))
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
-    
-    // Create user profile
-    const userProfile = {
-      id: Math.random().toString(36).substr(2, 9),
+    const registrationData = {
       email: values.email,
-      name: values.companyName,
-      role: 'industry' as const,
-      avatar: '',
-      initials: initials,
-      status: 'active' as const,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      preferences: {
-        theme: 'system' as const,
-        notifications: {
-          email: true,
-          push: true,
-          sms: false,
-          marketing: false,
-        },
-        language: 'en',
-        timezone: 'UTC',
-      },
-      profile: {
-        companyName: values.companyName,
-        industryType: values.industryType === "Others" ? values.customIndustryType : values.industryType,
-        phone: values.phone
-      },
-      password: values.password
+      password: values.password,
+      phone: values.phone,
+      role: 'IndustryAdmin',
+      firstName: values.firstName,
+      lastName: values.lastName,
+      companyName: values.companyName,
+      termsAccepted: values.termsAccepted,
+      privacyAccepted: values.privacyAccepted,
     };
 
-    const result = await signUp(userProfile);
-    
-    if (result.success) {
-      setNewUser(result.user);
-      setShowWelcomeModal(true);
-    }
+    await signUp(registrationData);
   }
-
-  const handleCompleteProfile = () => {
-    setShowWelcomeModal(false);
-    setTimeout(() => {
-      navigate("/profile-completion");
-    }, 300);
-  };
-
-  const handleGoToDashboard = () => {
-    setShowWelcomeModal(false);
-    setTimeout(() => {
-      navigate("/industry-dashboard");
-    }, 300);
-  };
 
   return (
     <>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 animate-fade-in">
+          <div className="grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="firstName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-gray-700">First Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="John" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="lastName"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-gray-700">Last Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Doe" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <FormField
             control={form.control}
             name="companyName"
@@ -338,7 +298,7 @@ export function IndustrySignUpForm() {
           
           <FormField
             control={form.control}
-            name="acceptTerms"
+            name="termsAccepted"
             render={({ field }) => (
               <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
                 <FormControl>
@@ -357,6 +317,28 @@ export function IndustrySignUpForm() {
               </FormItem>
             )}
           />
+
+          <FormField
+            control={form.control}
+            name="privacyAccepted"
+            render={({ field }) => (
+              <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md">
+                <FormControl>
+                  <Checkbox
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <div className="space-y-1 leading-none">
+                  <FormLabel className="text-gray-700">
+                    I accept the 
+                    <a href="/privacy" className="text-blue-600 hover:underline ml-1">privacy policy</a>
+                  </FormLabel>
+                  <FormMessage />
+                </div>
+              </FormItem>
+            )}
+          />
           
           <Button 
             type="submit" 
@@ -367,18 +349,6 @@ export function IndustrySignUpForm() {
           </Button>
         </form>
       </Form>
-
-      {showWelcomeModal && newUser && (
-        <WelcomeModal
-          isOpen={showWelcomeModal}
-          onClose={() => setShowWelcomeModal(false)}
-          userRole={newUser.role}
-          userName={newUser.name}
-          onCompleteProfile={handleCompleteProfile}
-          onGoToDashboard={handleGoToDashboard}
-          profileCompletion={85}
-        />
-      )}
     </>
   );
 }
