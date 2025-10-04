@@ -235,7 +235,7 @@ const ProfessionalOpportunities = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <ProfessionalHeader navItems={headerNavItems} />
+      {/* // <ProfessionalHeader navItems={headerNavItems} /> */}
       {/* --- Rest of your JSX remains unchanged --- */}
       <JobApplicationModal
         isOpen={isModalOpen}

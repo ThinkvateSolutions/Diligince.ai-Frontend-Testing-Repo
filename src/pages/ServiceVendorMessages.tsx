@@ -233,7 +233,7 @@ const ServiceVendorMessages = () => {
     .reduce((sum, c) => sum + c.unread, 0);
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <VendorHeader />
+      {/* <VendorHeader /> */}
 
       <div className="pt-16 flex-1 flex">
         {/* Conversations Sidebar */}
