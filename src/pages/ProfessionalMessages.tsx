@@ -290,7 +290,7 @@ const ProfessionalMessages = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <ProfessionalHeader navItems={headerNavItems} />
+      {/* // <ProfessionalHeader navItems={headerNavItems} /> */}
 
       <div className="pt-16 flex-1 flex">
         {/* Conversations Sidebar */}

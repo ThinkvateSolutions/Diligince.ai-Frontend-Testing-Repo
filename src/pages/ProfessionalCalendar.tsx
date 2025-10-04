@@ -91,7 +91,7 @@ const ProfessionalCalendar = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <ProfessionalHeader navItems={headerNavItems} />
+      {/* // <ProfessionalHeader navItems={headerNavItems} /> */}
 
       {/* Fixed main content with proper padding to avoid navbar overlap */}
       <main className="pt-24 px-4 sm:px-6 lg:px-8 pb-8 flex-1">

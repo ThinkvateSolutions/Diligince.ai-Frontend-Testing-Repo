@@ -165,7 +165,7 @@ const ServiceVendorRFQs: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <VendorHeader />
+      {/* <VendorHeader /> */}
 
       <main className="pt-32 p-6 lg:p-8 mx-0 px-[30px] py-[85px]">
         <div className="max-w-7xl mx-auto space-y-6 mt-8">

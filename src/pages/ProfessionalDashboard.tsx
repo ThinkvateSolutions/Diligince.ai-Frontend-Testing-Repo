@@ -397,7 +397,7 @@ const ProfessionalDashboard = () => {
   if (initialLoading) {
     return (
       <div className="min-h-screen flex flex-col bg-gray-50">
-        <ProfessionalHeader navItems={headerNavItems} />
+        {/* // <ProfessionalHeader navItems={headerNavItems} /> */} 
 
         <main className="pt-16 p-6 lg:p-8">
           <div className="max-w-7xl mx-auto space-y-6">
@@ -430,7 +430,7 @@ const ProfessionalDashboard = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <ProfessionalHeader navItems={headerNavItems} />
+      {/* // <ProfessionalHeader navItems={headerNavItems} /> */}
 
       <main className="pt-16 p-6 lg:p-8">
         <DashboardContainer />

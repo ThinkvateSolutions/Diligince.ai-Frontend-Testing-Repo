@@ -149,7 +149,7 @@ const ProductVendorRFQs = () => {
         <title>RFQs | Product Vendor Dashboard</title>
       </Helmet>
 
-      <VendorHeader />
+      {/* <VendorHeader /> */}
 
       <main className="pt-32 p-6 lg:p-8">
         <div className="max-w-7xl mx-auto space-y-6 mt-8">

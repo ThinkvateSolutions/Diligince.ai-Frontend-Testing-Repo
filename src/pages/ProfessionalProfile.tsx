@@ -160,7 +160,7 @@ const ProfessionalProfile = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50">
-      <ProfessionalHeader navItems={headerNavItems} />
+      {/* // <ProfessionalHeader navItems={headerNavItems} /> */}
 
       <div className="flex flex-grow pt-16">
         <ProfessionalSidebar
